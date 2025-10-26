@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://wqqj5awn2480"]
+[gd_scene load_steps=3 format=3 uid="uid://wqqj5awn2480"]
 
-[ext_resource type="PackedScene" uid="uid://cdmb8re0jujs5" path="res://test.glb" id="1_88gup"]
+[ext_resource type="PackedScene" uid="uid://cdmb8re0jujs5" path="res://assets/test.glb" id="1_88gup"]
+[ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="2_bisa2"]
 
 [node name="Room" type="Node3D"]
 
-[node name="Node3D" type="Node3D" parent="."]
-
 [node name="default2" parent="." instance=ExtResource("1_88gup")]
+
+[node name="Player" parent="." instance=ExtResource("2_bisa2")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5, 0, 0.5)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9659861, 1.3507338, 1.751199)
