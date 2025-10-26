@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cdmb8re0jujs5"
-path="res://.godot/imported/test.glb-a7b1b0a8ecde7b510ad4fc89d915d8de.scn"
+uid="uid://chm6ox13bxl01"
+path="res://.godot/imported/room_1.glb-3a16be6439362882753ff0ee7358cdc9.scn"
 
 [deps]
 
-source_file="res://assets/test.glb"
-dest_files=["res://.godot/imported/test.glb-a7b1b0a8ecde7b510ad4fc89d915d8de.scn"]
+source_file="res://assets/staging/room_1.glb"
+dest_files=["res://.godot/imported/room_1.glb-3a16be6439362882753ff0ee7358cdc9.scn"]
 
 [params]
 
@@ -37,14 +37,6 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"texture_0": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://assets/texture_0.tres",
-"use_external/path": "uid://dkmjcw1h11ox8"
-}
-}
-}
+_subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

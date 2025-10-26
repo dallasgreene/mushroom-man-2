@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://iadm6qir1suj"]
+
+[ext_resource type="PackedScene" uid="uid://chm6ox13bxl01" path="res://assets/staging/room_1.glb" id="1_10ng7"]
+
+[node name="room_1" instance=ExtResource("1_10ng7")]
