@@ -14,6 +14,11 @@ config/name="Mushroom Man 2"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://globals/signal_bus.gd"
+Moveable="*res://globals/moveable.gd"
+
 [debug]
 
 gdscript/warnings/unused_signal=0
