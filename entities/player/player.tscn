@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://c2ghkvo8n23rm"]
+[gd_scene load_steps=2 format=3 uid="uid://c2ghkvo8n23rm"]
+
+[ext_resource type="Script" uid="uid://cndg235lnk8dk" path="res://entities/player/player.gd" id="1_symyc"]
 
 [node name="Player" type="Node3D"]
+script = ExtResource("1_symyc")
 
 [node name="CameraPitch" type="Node3D" parent="."]
 
