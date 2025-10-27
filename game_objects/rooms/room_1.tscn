@@ -1,5 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://iadm6qir1suj"]
+[gd_scene load_steps=3 format=3 uid="uid://iadm6qir1suj"]
 
 [ext_resource type="PackedScene" uid="uid://chm6ox13bxl01" path="res://assets/staging/room_1.glb" id="1_10ng7"]
+[ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="2_v0e0o"]
 
 [node name="room_1" instance=ExtResource("1_10ng7")]
+
+[node name="Player" parent="." index="1" instance=ExtResource("2_v0e0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0176387, 1.9900222, 4.9075446)
+omni_range = 100.0
