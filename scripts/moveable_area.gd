@@ -1,8 +1,7 @@
 class_name MoveableArea extends CSGBox3D
 
-
-@export var the_shape: CollisionShape3D
-@export var the_area: Plane
+## Set to false to add pilars and other obstacles in a room
+@export var can_move_into: bool = true
 
 
 func _exit_tree():

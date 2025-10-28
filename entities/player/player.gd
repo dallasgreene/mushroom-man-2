@@ -1,37 +1,51 @@
 extends Node3D
 
 
-var rotate_speed = .2
+const ROTATE_SPEED = 0.2
+const MOVE_SPEED = 0.2
+
+
 var end_basis: Basis
 var moving = false
-		
+@export var current_room: Room
+
+
 func _physics_process(_delta: float) -> void:
 	if !moving:
 		if Input.is_action_just_pressed("move_forward"):
-			attempt_move(Vector2(0, 1))
+			attempt_move(0, -1)
 		elif Input.is_action_just_pressed("move_backward"):
-			attempt_move(Vector2(0, -1))
+			attempt_move(0, 1)
 		elif Input.is_action_just_pressed("move_left"):
-			attempt_move(Vector2(1, 0))
+			attempt_move(-1, 0)
 		elif Input.is_action_just_pressed("move_right"):
-			attempt_move(Vector2(-1, 0))
+			attempt_move(1, 0)
 		elif Input.is_action_just_pressed("rotate_right"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),-PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,rotate_speed).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,ROTATE_SPEED).finished.connect(_on_moving_finish)
 		elif Input.is_action_just_pressed("rotate_left"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,rotate_speed).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,ROTATE_SPEED).finished.connect(_on_moving_finish)
 		if Input.is_action_just_pressed("melee_attack"):
 			pass
 
-func attempt_move(direction: Vector2):
-	position = Vector3(
-		int(position.x) + (2 * int(direction.x)),
-		position.y,
-		int(position.z) + (2 * int(direction.y))
-	)		
+func attempt_move(forward_direction: int, lateral_direction: int):
+	var desired_position = (
+		position +
+		(2 * lateral_direction) * transform.basis.z +
+		(2 * forward_direction) * transform.basis.x
+	)
+	var can_move_to_position = current_room.pathfinding.get_point_position(
+		current_room.pathfinding.get_closest_point(desired_position)
+	)
+	if desired_position.is_equal_approx(can_move_to_position):
+		moving = true
+		create_tween().tween_method(set_position, position, desired_position, MOVE_SPEED).finished.connect(_on_moving_finish)
+
+func move_player(value: Vector3):
+	position = value
 
 func rotate_player(value: Basis):
 	transform.basis = value
@@ -39,5 +53,6 @@ func rotate_player(value: Basis):
 func _on_moving_finish():
 	moving = false
 	rotation_degrees.y = roundf(rotation_degrees.y)
-	print(rotation_degrees)
-	
+	position.x = roundf(position.x)
+	position.y = roundf(position.y)
+	position.z = roundf(position.z)

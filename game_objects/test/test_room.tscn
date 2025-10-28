@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5vlntx1414v1"]
+
+[ext_resource type="Script" uid="uid://docbcs0ugfxc6" path="res://scripts/room.gd" id="1_wu45g"]
+[ext_resource type="Script" uid="uid://cqx8574q20wem" path="res://scripts/moveable_area.gd" id="2_s0hnn"]
+[ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="3_rj634"]
+
+[node name="TestRoom" type="Node3D"]
+script = ExtResource("1_wu45g")
+metadata/_custom_type_script = "uid://docbcs0ugfxc6"
+
+[node name="MoveableArea" type="CSGBox3D" parent="."]
+size = Vector3(6, 0, 4)
+script = ExtResource("2_s0hnn")
+metadata/_custom_type_script = "uid://cqx8574q20wem"
+
+[node name="Player" parent="." node_paths=PackedStringArray("current_room") instance=ExtResource("3_rj634")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+current_room = NodePath("..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
