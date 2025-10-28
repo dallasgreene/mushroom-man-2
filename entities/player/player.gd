@@ -1,14 +1,12 @@
 extends Node3D
-
-
-const ROTATE_SPEED = 0.2
-const MOVE_SPEED = 0.2
-
+class_name Player
 
 var end_basis: Basis
 var moving = false
 @export var current_room: Room
 
+func _ready():
+	Global.register_player(self)
 
 func _physics_process(_delta: float) -> void:
 	if !moving:
@@ -23,11 +21,11 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("rotate_right"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),-PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,ROTATE_SPEED).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_moving_finish)
 		elif Input.is_action_just_pressed("rotate_left"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,ROTATE_SPEED).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_moving_finish)
 		if Input.is_action_just_pressed("melee_attack"):
 			pass
 
@@ -42,7 +40,8 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 	)
 	if desired_position.is_equal_approx(can_move_to_position):
 		moving = true
-		create_tween().tween_method(set_position, position, desired_position, MOVE_SPEED).finished.connect(_on_moving_finish)
+		SignalBus.time_step.emit()
+		create_tween().tween_method(move_player, position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
 
 func move_player(value: Vector3):
 	position = value
@@ -56,3 +55,5 @@ func _on_moving_finish():
 	position.x = roundf(position.x)
 	position.y = roundf(position.y)
 	position.z = roundf(position.z)
+	#print("current position: ", position)
+	#print("path: ",current_room.pathfinding.get_point_path(current_room.pathfinding.get_closest_point(position), current_room.pathfinding.get_closest_point(Vector3(0,0,0))))

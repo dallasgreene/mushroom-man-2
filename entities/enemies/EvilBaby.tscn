@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://2lr510wls0xx"]
+
+[ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_m2e7p"]
+[ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/monsters2-2.png" id="2_gwsfm"]
+[ext_resource type="PackedScene" uid="uid://bfn71a7j1p7ma" path="res://entities/enemies/EnemyMovementComponent.tscn" id="3_c5tm3"]
+
+[node name="EvilBaby" type="Node3D"]
+script = ExtResource("1_m2e7p")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+offset = Vector2(0, 32)
+billboard = 2
+texture = ExtResource("2_gwsfm")
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_c5tm3")]

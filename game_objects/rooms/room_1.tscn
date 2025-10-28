@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://iadm6qir1suj"]
+[gd_scene load_steps=6 format=3 uid="uid://iadm6qir1suj"]
 
 [ext_resource type="PackedScene" uid="uid://chm6ox13bxl01" path="res://assets/staging/room_1.glb" id="1_10ng7"]
+[ext_resource type="Script" uid="uid://docbcs0ugfxc6" path="res://scripts/room.gd" id="2_f5cve"]
 [ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="2_v0e0o"]
+[ext_resource type="Script" uid="uid://cqx8574q20wem" path="res://scripts/moveable_area.gd" id="3_mk5js"]
+[ext_resource type="PackedScene" uid="uid://2lr510wls0xx" path="res://entities/enemies/EvilBaby.tscn" id="5_2v6d3"]
 
 [node name="room_1" instance=ExtResource("1_10ng7")]
+script = ExtResource("2_f5cve")
 
 [node name="default" parent="." index="0"]
 transform = Transform3D(1.333, 0, 0, 0, 1.333, 0, 0, 0, 1.333, 0, 0, 0)
 
-[node name="Player" parent="." index="1" instance=ExtResource("2_v0e0o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5)
+[node name="Player" parent="." index="1" node_paths=PackedStringArray("current_room") instance=ExtResource("2_v0e0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+current_room = NodePath("..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0176387, 1.9900222, 4.9075446)
 omni_range = 100.0
+
+[node name="MoveableArea" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.646678, 6)
+visible = false
+size = Vector3(12, 0, 12)
+script = ExtResource("3_mk5js")
+metadata/_custom_type_script = "uid://cqx8574q20wem"
+
+[node name="EvilBaby" parent="." index="4" instance=ExtResource("5_2v6d3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 7)

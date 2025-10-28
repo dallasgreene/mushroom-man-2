@@ -45,12 +45,8 @@ func init_pathfinding() -> void:
 		return
 	var positive_points = {}
 	var negative_points = {}
-	var y_coord = null
 	for child_node in get_children():
 		if child_node is MoveableArea:
-			if y_coord == null:
-				y_coord = child_node.position.y
-			assert(y_coord == child_node.position.y, "All MoveableAreas in a room must have the same y coordinate!!")
 			if child_node.can_move_into:
 				add_points_from_moveable_area(positive_points, child_node)
 			else:
@@ -66,7 +62,7 @@ func init_pathfinding() -> void:
 	for x_coord in positive_points.keys():
 		for z_coord in positive_points[x_coord].keys():
 			position_id = pathfinding.get_available_point_id()
-			pathfinding.add_point(position_id, Vector3(x_coord, y_coord, z_coord))
+			pathfinding.add_point(position_id, Vector3(x_coord, 0, z_coord))
 			# positive_points is initialized to -1, then set here to the corresponding position ID
 			# in the AStar pathfinding object.
 			positive_points[x_coord][z_coord] = position_id
