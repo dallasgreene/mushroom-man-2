@@ -21,11 +21,11 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("rotate_right"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),-PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		elif Input.is_action_just_pressed("rotate_left"):
 			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),PI/2))
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_moving_finish)
+			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
 			pass
 
@@ -51,9 +51,17 @@ func rotate_player(value: Basis):
 
 func _on_moving_finish():
 	moving = false
-	rotation_degrees.y = roundf(rotation_degrees.y)
 	position.x = roundf(position.x)
 	position.y = roundf(position.y)
 	position.z = roundf(position.z)
+	SignalBus.player_moved.emit(Vector3i(
+		roundi(global_position.x),
+		roundi(global_position.y),
+		roundi(global_position.z),
+	))
+
+func _on_rotating_finish():
+	moving = false
+	rotation_degrees.y = roundf(rotation_degrees.y)
 	#print("current position: ", position)
 	#print("path: ",current_room.pathfinding.get_point_path(current_room.pathfinding.get_closest_point(position), current_room.pathfinding.get_closest_point(Vector3(0,0,0))))
