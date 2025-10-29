@@ -1,13 +1,12 @@
 class_name Room extends Node3D
 
 
-## The size of a tile in meters
-const TILE_SIZE: int = 2
-
-
 ## Keep in mind that all positions in this pathfinding object are relative to this room,
 ## and need to be converted to global positions when used.
 var pathfinding: AStar3D = null
+## The ID given by the Minimap global to the minimap texture that corresponds
+## to this room.
+var room_minimap_id: int = -1
 
 
 func _ready() -> void:
@@ -16,25 +15,25 @@ func _ready() -> void:
 
 func add_points_from_moveable_area(aggregator: Dictionary, move_area: MoveableArea) -> void:
 	for x_index in range(
-		roundi(move_area.position.x - (move_area.size.x / 2) + (float(TILE_SIZE) / 2)),
-		roundi(move_area.position.x + (move_area.size.x / 2)),
-		TILE_SIZE
+		roundi(move_area.global_position.x - (move_area.size.x / 2) + (float(Global.TILE_SIZE) / 2)),
+		roundi(move_area.global_position.x + (move_area.size.x / 2)),
+		Global.TILE_SIZE
 	):
 		if not aggregator.has(x_index):
 			aggregator[x_index] = {}
 		for z_index in range(
-			roundi(move_area.position.z - (move_area.size.z / 2) + (float(TILE_SIZE) / 2)),
-			roundi(move_area.position.z + (move_area.size.z / 2)),
-			TILE_SIZE
+			roundi(move_area.global_position.z - (move_area.size.z / 2) + (float(Global.TILE_SIZE) / 2)),
+			roundi(move_area.global_position.z + (move_area.size.z / 2)),
+			Global.TILE_SIZE
 		):
 			aggregator[x_index][z_index] = -1
 
 
 func add_connections_for_position(positive_points: Dictionary, x_coord: int, z_coord: int, curr_position_id: int) -> void:
-	var left_pos_id = positive_points.get(x_coord - TILE_SIZE, {}).get(z_coord, -1)
-	var right_pos_id = positive_points.get(x_coord + TILE_SIZE, {}).get(z_coord, -1)
-	var forward_pos_id = positive_points.get(x_coord, {}).get(z_coord + TILE_SIZE, -1)
-	var back_pos_id = positive_points.get(x_coord, {}).get(z_coord - TILE_SIZE, -1)
+	var left_pos_id = positive_points.get(x_coord - Global.TILE_SIZE, {}).get(z_coord, -1)
+	var right_pos_id = positive_points.get(x_coord + Global.TILE_SIZE, {}).get(z_coord, -1)
+	var forward_pos_id = positive_points.get(x_coord, {}).get(z_coord + Global.TILE_SIZE, -1)
+	var back_pos_id = positive_points.get(x_coord, {}).get(z_coord - Global.TILE_SIZE, -1)
 	for position_id in [left_pos_id, right_pos_id, forward_pos_id, back_pos_id]:
 		if position_id != -1:
 			pathfinding.connect_points(curr_position_id, position_id)
@@ -56,6 +55,7 @@ func init_pathfinding() -> void:
 		if positive_points.has(negative_x_coord):
 			for negative_z_coord in negative_points[negative_x_coord].keys():
 				positive_points[negative_x_coord].erase(negative_z_coord)
+	room_minimap_id = Minimaps.register_room(positive_points)
 	# Create the Astar from the positive points
 	var position_id = 0
 	pathfinding = AStar3D.new()

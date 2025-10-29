@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyvuins014i2k"]
+
+[ext_resource type="Script" uid="uid://cckbp0of80v2v" path="res://main/ui.gd" id="1_xwkvk"]
+[ext_resource type="PackedScene" uid="uid://b5vlntx1414v1" path="res://game_objects/test/test_room.tscn" id="2_pjrb6"]
+
+[node name="Main" type="Node"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_xwkvk")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 300.0
+grow_horizontal = 0
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="TestRoom" parent="World" instance=ExtResource("2_pjrb6")]
