@@ -1,7 +1,9 @@
 extends Area3D
+class_name AttackComponent
 @export_range(1,100) var distance: int
 @export var attack_type:AttackType
 @export var enemy_attack: bool
+@export_range(1,100) var time_to_attack: int
 
 enum AttackType{
 	CONE,
@@ -11,9 +13,9 @@ enum AttackType{
 }
 
 func _ready():
+	attack_type = (randi() % 4) + 1 as AttackType
 	
-	#Debug stuff for visual testing
-	
+func create_attack():
 	match attack_type:
 		AttackType.CONE:
 			for i in range(distance):
@@ -67,3 +69,7 @@ func _ready():
 				collision_shape.debug_color = Color(0.0, 0.6, 0.702, 0.42)
 				collision_shape.debug_fill=true
 				add_child(collision_shape)
+				
+func attack():
+	for child in get_children():
+		child.queue_free()

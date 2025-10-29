@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm3vhk4c1ggfg"]
+
+[ext_resource type="Script" uid="uid://cr2q5etoif6yx" path="res://entities/attacks/attack_component.gd" id="1_1dpkf"]
+
+[node name="AttackComponent" type="Area3D"]
+script = ExtResource("1_1dpkf")
+distance = 1
