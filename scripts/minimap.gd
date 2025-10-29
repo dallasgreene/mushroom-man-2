@@ -42,6 +42,9 @@ func _init(position_dict: Dictionary) -> void:
 				rect_position,
 				Vector2i(Global.TILE_SIZE, Global.TILE_SIZE) * resize_factor
 			)
+			room_image.fill_rect(rect_to_fill, Color.BLACK)
+			rect_to_fill.position += Vector2i(1, 1)
+			rect_to_fill.size -= Vector2i(2, 2)
 			room_image.fill_rect(rect_to_fill, Color.WHITE)
 	#room_image.resize(x_size * resize_factor, y_size * resize_factor, Image.INTERPOLATE_NEAREST)
 	base_image_texture = ImageTexture.create_from_image(room_image)
