@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://o2c1xqgfxfbv"
-path="res://.godot/imported/room_1.glb-3a16be6439362882753ff0ee7358cdc9.scn"
+uid="uid://sna70wnj7tk7"
+path="res://.godot/imported/enemy_snail.glb-8a14a107b4394537c88aa97a7ac89860.scn"
 
 [deps]
 
-source_file="res://assets/staging/room_1.glb"
-dest_files=["res://.godot/imported/room_1.glb-3a16be6439362882753ff0ee7358cdc9.scn"]
+source_file="res://assets/staging/enemy_snail.glb"
+dest_files=["res://.godot/imported/enemy_snail.glb-8a14a107b4394537c88aa97a7ac89860.scn"]
 
 [params]
 

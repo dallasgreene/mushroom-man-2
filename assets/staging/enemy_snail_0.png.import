@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bipsmr8jltl65"
-path.s3tc="res://.godot/imported/hallway_1_0.png-aa91cbf2bb5eb7020af62488209c72c8.s3tc.ctex"
+uid="uid://cyfbxmukrcejl"
+path.s3tc="res://.godot/imported/enemy_snail_0.png-a7c0673d1aecf4aa11527036983242ff.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/staging/hallway_1_0.png"
-dest_files=["res://.godot/imported/hallway_1_0.png-aa91cbf2bb5eb7020af62488209c72c8.s3tc.ctex"]
+source_file="res://assets/staging/enemy_snail_0.png"
+dest_files=["res://.godot/imported/enemy_snail_0.png-a7c0673d1aecf4aa11527036983242ff.s3tc.ctex"]
 
 [params]
 
