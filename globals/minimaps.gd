@@ -10,8 +10,6 @@ var player_sprite: Sprite2D = null
 
 var room_minimaps: Array[Minimap] = []
 var current_minimap: int = 0
-#var global_map_texture: ImageTexture = null
-#var global_map_image: Image = Image.new()
 
 
 func _ready() -> void:
@@ -45,7 +43,5 @@ func register_room(position_dict: Dictionary) -> int:
 
 
 func _on_player_moved(new_position: Vector3i) -> void:
-	print(str(new_position))
 	var pixel_pos = room_minimaps[current_minimap].get_pixel_position_from_grid(new_position)
-	print(str(pixel_pos))
 	player_sprite.position = pixel_pos
