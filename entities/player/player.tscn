@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2ghkvo8n23rm"]
+[gd_scene load_steps=3 format=3 uid="uid://c2ghkvo8n23rm"]
 
 [ext_resource type="Script" uid="uid://cndg235lnk8dk" path="res://entities/player/player.gd" id="1_symyc"]
+[ext_resource type="Script" uid="uid://cr2q5etoif6yx" path="res://entities/attacks/attack.gd" id="2_abrql"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_symyc")
@@ -9,3 +10,9 @@ script = ExtResource("1_symyc")
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 2, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPitch"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_abrql")
+distance = 5
+attack_type = 3

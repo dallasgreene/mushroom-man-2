@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyvuins014i2k"]
 
 [ext_resource type="Script" uid="uid://cckbp0of80v2v" path="res://main/ui.gd" id="1_xwkvk"]
-[ext_resource type="PackedScene" uid="uid://b5vlntx1414v1" path="res://game_objects/test/test_room.tscn" id="2_pjrb6"]
+[ext_resource type="PackedScene" uid="uid://iadm6qir1suj" path="res://game_objects/rooms/room_1.tscn" id="3_xwkvk"]
 
 [node name="Main" type="Node"]
 
@@ -35,4 +35,4 @@ render_target_update_mode = 4
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="TestRoom" parent="World" instance=ExtResource("2_pjrb6")]
+[node name="room_1" parent="World" instance=ExtResource("3_xwkvk")]

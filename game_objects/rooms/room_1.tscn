@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://docbcs0ugfxc6" path="res://scripts/room.gd" id="2_f5cve"]
 [ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="2_v0e0o"]
 [ext_resource type="Script" uid="uid://cqx8574q20wem" path="res://scripts/moveable_area.gd" id="3_mk5js"]
-[ext_resource type="PackedScene" uid="uid://2lr510wls0xx" path="res://entities/enemies/EvilBaby.tscn" id="5_2v6d3"]
+[ext_resource type="PackedScene" uid="uid://2lr510wls0xx" path="res://entities/enemies/Slime.tscn" id="5_2v6d3"]
 
 [node name="room_1" instance=ExtResource("1_10ng7")]
 script = ExtResource("2_f5cve")
