@@ -73,6 +73,9 @@ func init_pathfinding() -> void:
 			positive_points[x_coord][z_coord] = position_id
 			tile_states[x_coord][z_coord] = Tile.new(room_id, position_id)
 			add_connections_for_position(positive_points, x_coord, z_coord, position_id)
+	var player_pos = Global.player.position
+	var player_tile = get_tile(roundi(player_pos.x), roundi(player_pos.z))
+	player_tile.occupying_entity = Global.player
 
 
 func move_entity(old_position: Vector3i, new_position: Vector3i, entity: Node3D) -> void:

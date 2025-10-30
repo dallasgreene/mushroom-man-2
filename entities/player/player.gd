@@ -39,6 +39,12 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		current_room.pathfinding.get_closest_point(desired_position)
 	)
 	if desired_position.is_equal_approx(can_move_to_position):
+		if not current_room.attempt_to_move_player(Vector3i(
+			roundi(desired_position.x),
+			roundi(desired_position.y),
+			roundi(desired_position.z),
+		)):
+			return
 		moving = true
 		SignalBus.time_step.emit()
 		create_tween().tween_method(move_player, position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
