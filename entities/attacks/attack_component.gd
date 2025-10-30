@@ -11,9 +11,6 @@ enum AttackType{
 	CLEAVE,
 	CIRCLE
 }
-
-func _ready():
-	attack_type = (randi() % 4) + 1 as AttackType
 	
 func create_attack():
 	match attack_type:
