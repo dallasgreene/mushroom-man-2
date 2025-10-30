@@ -3,6 +3,7 @@ class_name Enemy
 var parent_room: Room
 var moving_next_turn: bool = false
 var state: State
+var path
 @export var attack_component: AttackComponent
 @export var movement_component: EnemyMovementComponent
 
@@ -32,18 +33,22 @@ func _turn_process():
 					attack_component.attack()
 					state = State.MOVING
 			elif attack_component != null && attack_component.time_to_attack == 0:
-				attack_component.attack_type = AttackComponent.AttackType.CONE
-				attack_component.distance = 2
-				attack_component.enemy_attack = true
-				attack_component.time_to_attack = 3
 				attack_component.create_attack()
 			elif attack_component == null:
 				state = State.MOVING	
 		State.MOVING:
-			if movement_component != null && moving_next_turn:
-				var path = movement_component.move(parent_room, self)
-				if attack_component!= null && ((path.size() <= attack_component.distance + 1) || (path.size() == 1 && attack_component.attack_type == AttackComponent.AttackType.CLEAVE)):
-					state = State.ATTACKING
-			moving_next_turn = !moving_next_turn
+			if movement_component != null:
+				if moving_next_turn:
+					path = movement_component.move(parent_room, self)
+					print("path size: ", path.size())
+					print("attack_component.distance: ", attack_component.distance )
+				moving_next_turn = !moving_next_turn
+				if attack_component!= null:
+					if path != null && ((path.size()-1 <= attack_component.distance) || (path.size()+1 == 1 && attack_component.attack_type == AttackComponent.AttackType.CLEAVE)):
+						print("path size: ", path.size())
+						print("path", path)
+						print("attack_component.distance: ", attack_component.distance )
+						state = State.ATTACKING
+						path = null
 		_:
 			print("state machine missing state for ", self.to_string())

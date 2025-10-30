@@ -14,7 +14,6 @@ movement_component = NodePath("EnemyMovementComponent")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 offset = Vector2(0, 32)
-billboard = 2
 texture = ExtResource("2_nec4x")
 
 [node name="Hurtbox" type="CollisionShape3D" parent="."]
@@ -22,5 +21,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29297078, 0)
 shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
+distance = 2
+enemy_attack = true
+time_to_attack = 3
 
 [node name="EnemyMovementComponent" parent="." instance=ExtResource("3_rohuw")]
