@@ -4,13 +4,15 @@ class_name Room extends Node3D
 ## Keep in mind that all positions in this pathfinding object are relative to this room,
 ## and need to be converted to global positions when used.
 var pathfinding: AStar3D = null
-## The ID given by the Minimap global to the minimap texture that corresponds
-## to this room.
-var room_minimap_id: int = -1
+## The ID used to identify this room
+var room_id: int = -1
+## Structure: { [x_coord]: { [z_coord]: Tile } }
+var tile_states: Dictionary = {}
 
 
 func _ready() -> void:
 	init_pathfinding.call_deferred()
+	room_id = Global.get_next_available_room_id()
 
 
 func add_points_from_moveable_area(aggregator: Dictionary, move_area: MoveableArea) -> void:
@@ -55,15 +57,39 @@ func init_pathfinding() -> void:
 		if positive_points.has(negative_x_coord):
 			for negative_z_coord in negative_points[negative_x_coord].keys():
 				positive_points[negative_x_coord].erase(negative_z_coord)
-	room_minimap_id = Minimaps.register_room(positive_points)
+	# Register to globals that need the points data
+	Minimaps.register_room(room_id, positive_points)
+	TileState.register_room(room_id, self)
 	# Create the Astar from the positive points
 	var position_id = 0
 	pathfinding = AStar3D.new()
 	for x_coord in positive_points.keys():
+		tile_states[x_coord] = {}
 		for z_coord in positive_points[x_coord].keys():
 			position_id = pathfinding.get_available_point_id()
 			pathfinding.add_point(position_id, Vector3(x_coord, 0, z_coord))
 			# positive_points is initialized to -1, then set here to the corresponding position ID
 			# in the AStar pathfinding object.
 			positive_points[x_coord][z_coord] = position_id
+			tile_states[x_coord][z_coord] = Tile.new(room_id, position_id)
 			add_connections_for_position(positive_points, x_coord, z_coord, position_id)
+
+
+func move_entity(old_position: Vector3i, new_position: Vector3i, entity: Node3D) -> void:
+	var prev_tile = get_tile(old_position.x, old_position.z)
+	var new_tile = get_tile(new_position.x, new_position.z)
+	pathfinding.set_point_disabled(prev_tile.astar_position_id, false)
+	prev_tile.occupying_entity = null
+	pathfinding.set_point_disabled(new_tile.astar_position_id, true)
+	new_tile.occupying_entity = entity
+
+
+func attempt_to_move_player(new_position: Vector3i) -> bool:
+	var player_pos = Global.player.position
+	var old_pos = Vector3i(roundi(player_pos.x), roundi(player_pos.y), roundi(player_pos.z))
+	move_entity(old_pos, new_position, Global.player)
+	return true
+
+
+func get_tile(x_coord: int, z_coord: int) -> Tile:
+	return tile_states[x_coord][z_coord]

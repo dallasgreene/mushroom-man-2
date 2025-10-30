@@ -21,6 +21,7 @@ SignalBus="*res://globals/signal_bus.gd"
 Moveable="*res://globals/moveable.gd"
 Global="*res://globals/global.gd"
 Minimaps="*res://globals/minimaps.gd"
+TileState="*res://globals/tile_state.gd"
 
 [debug]
 

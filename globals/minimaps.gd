@@ -8,7 +8,7 @@ var viewport_camera: Camera2D = null
 var minimap_sprite: Sprite2D = null
 var player_sprite: Sprite2D = null
 
-var room_minimaps: Array[Minimap] = []
+var room_minimaps: Dictionary[int, Minimap] = {}
 var current_minimap: int = 0
 
 
@@ -31,15 +31,15 @@ func register_parent_viewport(new_view: SubViewport) -> void:
 	minimap_sprite.add_child(player_sprite)
 
 
-func create_room_minimap_texture(position_dict: Dictionary) -> int:
+func create_room_minimap_texture(room_id: int, position_dict: Dictionary) -> int:
 	var new_minimap = Minimap.new(position_dict)
-	room_minimaps.push_back(new_minimap)
+	room_minimaps[room_id] = new_minimap
 	minimap_sprite.texture = new_minimap.base_image_texture
 	return room_minimaps.size() - 1
 
 
-func register_room(position_dict: Dictionary) -> int:
-	return create_room_minimap_texture(position_dict)
+func register_room(room_id: int, position_dict: Dictionary) -> void:
+	return create_room_minimap_texture(room_id, position_dict)
 
 
 func _on_player_moved(new_position: Vector3i) -> void:
