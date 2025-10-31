@@ -5,6 +5,8 @@ var end_basis: Basis
 var moving = false
 @export var current_room: Room
 
+@onready var collision_shape = %CollisionShape3D
+
 func _ready():
 	Global.register_player(self)
 
@@ -45,17 +47,24 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 			roundi(desired_position.z),
 		)):
 			return
+			
+		%CollisionShape3D.global_position = Vector3(desired_position.x, %CollisionShape3D.global_position.y, desired_position.z)
 		moving = true
-		SignalBus.time_step.emit()
-		create_tween().tween_method(move_player, position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
-
+		desired_position.y = %CameraPitch.global_position.y
+		Global.timeline_process()
+		create_tween().tween_method(move_player, $CameraPitch.global_position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
+		
 func move_player(value: Vector3):
-	position = value
+	%CameraPitch.global_position = value
 
 func rotate_player(value: Basis):
 	transform.basis = value
 
 func _on_moving_finish():
+	var final_pos = Vector3(%CollisionShape3D.global_position.x, 0, %CollisionShape3D.global_position.z)
+	global_position = final_pos
+	%CollisionShape3D.position = Vector3(0,.5,0)
+	%CameraPitch.position = Vector3(0,2,0)
 	moving = false
 	position.x = roundf(position.x)
 	position.y = roundf(position.y)

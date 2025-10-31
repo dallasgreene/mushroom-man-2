@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://iadm6qir1suj"]
 
 [ext_resource type="PackedScene" uid="uid://o2c1xqgfxfbv" path="res://assets/staging/room_1.glb" id="1_10ng7"]
-[ext_resource type="Script" path="res://scripts/room.gd" id="2_2v6d3"]
+[ext_resource type="Script" uid="uid://docbcs0ugfxc6" path="res://scripts/room.gd" id="2_2v6d3"]
 [ext_resource type="PackedScene" uid="uid://2lr510wls0xx" path="res://entities/enemies/Slime.tscn" id="2_mk5js"]
 [ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="3_f5cve"]
 [ext_resource type="Script" uid="uid://cqx8574q20wem" path="res://scripts/moveable_area.gd" id="5_ovg67"]
@@ -25,3 +25,6 @@ metadata/_custom_type_script = "uid://cqx8574q20wem"
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.987, -6)
 omni_range = 20.0
+
+[node name="SlimeEnemy2" parent="." index="5" instance=ExtResource("2_mk5js")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -11)

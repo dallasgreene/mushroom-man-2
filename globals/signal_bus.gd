@@ -2,3 +2,8 @@ extends Node
 
 signal player_moved(new_position: Vector3i)
 signal time_step
+signal enemy_movement_start
+signal enemy_movement_received
+signal enemy_attack_start
+signal enemy_attack_received
+signal turn_ended
