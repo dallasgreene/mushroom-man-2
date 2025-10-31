@@ -21,11 +21,11 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("move_right"):
 			attempt_move(1, 0)
 		elif Input.is_action_just_pressed("rotate_right"):
-			end_rotation.y = roundi(rotation_degrees.y-90)%360
+			end_rotation.y = roundi(rotation_degrees.y-90)
 			moving = true
 			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		elif Input.is_action_just_pressed("rotate_left"):
-			end_rotation.y = roundi(rotation_degrees.y+90)%360
+			end_rotation.y = roundi(rotation_degrees.y+90)
 			moving = true
 			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
