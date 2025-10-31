@@ -1,7 +1,7 @@
 extends Node3D
 class_name Player
 
-var end_basis: Basis
+var end_rotation: Vector3
 var moving = false
 @export var current_room: Room
 
@@ -21,13 +21,13 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("move_right"):
 			attempt_move(1, 0)
 		elif Input.is_action_just_pressed("rotate_right"):
-			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),-PI/2))
+			end_rotation.y = roundi(rotation_degrees.y-90)%360
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
+			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		elif Input.is_action_just_pressed("rotate_left"):
-			end_basis = Basis(transform.basis.rotated(Vector3(0,1,0),PI/2))
+			end_rotation.y = roundi(rotation_degrees.y+90)%360
 			moving = true
-			create_tween().tween_method(rotate_player,transform.basis,end_basis,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
+			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
 			pass
 
@@ -57,8 +57,8 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 func move_player(value: Vector3):
 	%CameraPitch.global_position = value
 
-func rotate_player(value: Basis):
-	transform.basis = value
+func rotate_player(value: Vector3):
+	rotation_degrees = value
 
 func _on_moving_finish():
 	var final_pos = Vector3(%CollisionShape3D.global_position.x, 0, %CollisionShape3D.global_position.z)
