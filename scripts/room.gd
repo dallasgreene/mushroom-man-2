@@ -8,6 +8,8 @@ var pathfinding: AStar3D = null
 var room_id: int = -1
 ## Structure: { [x_coord]: { [z_coord]: Tile } }
 var tile_states: Dictionary = {}
+## Same structure as above
+var attacked_tiles: Dictionary = {}
 
 
 func _ready() -> void:
@@ -93,6 +95,8 @@ func attempt_to_move_player(new_position: Vector3i) -> bool:
 	move_entity(old_pos, new_position, Global.player)
 	return true
 
+func mark_attack_tile(location: Vector3i):
+	print(location)
 
 func get_tile(x_coord: int, z_coord: int) -> Tile:
 	return tile_states[x_coord][z_coord]

@@ -12,9 +12,10 @@ enum AttackType{
 	CIRCLE
 }
 	
-func create_attack():
+func create_attack(parent_room: Room, parent_entity: Node3D):
 	match attack_type:
-		AttackType.CONE:
+		AttackType.CONE:	
+			print("position: ", parent_entity.global_position)
 			for i in range(distance):
 				#Creating the layers of the cone (increasing length lines as it goes farther out) (we can change this later for collision)
 				var collision_shape:CollisionShape3D = CollisionShape3D.new()
@@ -26,6 +27,18 @@ func create_attack():
 				collision_shape.debug_color = Color(0.0, 0.6, 0.702, 0.42)
 				collision_shape.debug_fill=true
 				add_child(collision_shape)	
+				var desired_position = (position + (-2*(i+1)) * transform.basis.z)
+				parent_room.mark_attack_tile(parent_entity.to_global(Vector3(0,.5,desired_position.z)))
+	
+				for j in range (i):
+					var desired_position_outside = (
+						position +
+						(-2*(i+1)) * transform.basis.z +
+						(2 * (j+1)) * transform.basis.x
+					)
+					
+					parent_room.mark_attack_tile(parent_entity.to_global(Vector3(desired_position_outside.x,.5,desired_position_outside.z)).round())
+					parent_room.mark_attack_tile(parent_entity.to_global(Vector3(-desired_position_outside.x,.5,desired_position_outside.z)).round())
 		AttackType.LINE:
 			var collision_shape:CollisionShape3D = CollisionShape3D.new()
 			var box_shape = BoxShape3D.new()
@@ -66,7 +79,7 @@ func create_attack():
 				collision_shape.debug_color = Color(0.0, 0.6, 0.702, 0.42)
 				collision_shape.debug_fill=true
 				add_child(collision_shape)
-				
+		
 func attack():
 	for child in get_children():
 		child.queue_free()

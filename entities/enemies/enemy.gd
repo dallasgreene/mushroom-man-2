@@ -42,10 +42,10 @@ func _enemy_movement_start():
 				#print("attack_component.distance: ", attack_component.distance )
 			moving_next_turn = !moving_next_turn
 			if attack_component!= null:
-				if path != null && ((path.size()-1 <= attack_component.distance) || (path.size()+1 == 1 && attack_component.attack_type == AttackComponent.AttackType.CLEAVE)):
+				if path != null && ((path.size()-1 <= attack_component.distance) || (path.size()+1 == 1 && attack_component.attack_type == attack_component.AttackType.CLEAVE)):
 					state = State.ATTACKING
 					path = null
-					attack_component.create_attack()
+					attack_component.create_attack(parent_room,self)
 					#print(AttackComponent.AttackType.keys()[attack_component.attack_type])
 	SignalBus.enemy_movement_received.emit()
 

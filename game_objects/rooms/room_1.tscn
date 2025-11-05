@@ -25,6 +25,3 @@ metadata/_custom_type_script = "uid://cqx8574q20wem"
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.987, -6)
 omni_range = 20.0
-
-[node name="SlimeEnemy2" parent="." index="5" instance=ExtResource("2_mk5js")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -11)
