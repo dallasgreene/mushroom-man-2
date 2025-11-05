@@ -18,10 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://globals/signal_bus.gd"
-Moveable="*res://globals/moveable.gd"
 Global="*res://globals/global.gd"
+Moveable="*res://globals/moveable.gd"
 Minimaps="*res://globals/minimaps.gd"
 TileState="*res://globals/tile_state.gd"
+EnemyAction="*res://globals/enemy_action.gd"
 
 [debug]
 

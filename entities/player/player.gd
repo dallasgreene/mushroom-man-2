@@ -3,15 +3,17 @@ class_name Player
 
 var end_rotation: Vector3
 var moving = false
+var waiting_for_enemies = false
 @export var current_room: Room
 
 @onready var collision_shape = %CollisionShape3D
 
 func _ready():
 	Global.register_player(self)
+	SignalBus.enemies_finished_acting.connect(_on_enemies_finished_acting)
 
 func _physics_process(_delta: float) -> void:
-	if !moving:
+	if !moving and !waiting_for_enemies:
 		if Input.is_action_just_pressed("move_forward"):
 			attempt_move(0, -1)
 		elif Input.is_action_just_pressed("move_backward"):
@@ -50,8 +52,9 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 			
 		%CollisionShape3D.global_position = Vector3(desired_position.x, %CollisionShape3D.global_position.y, desired_position.z)
 		moving = true
+		waiting_for_enemies = true
 		desired_position.y = %CameraPitch.global_position.y
-		Global.timeline_process()
+		EnemyAction.enemies_take_turn()
 		create_tween().tween_method(move_player, $CameraPitch.global_position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
 		
 func move_player(value: Vector3):
@@ -80,3 +83,7 @@ func _on_rotating_finish():
 	rotation_degrees.y = roundf(rotation_degrees.y)
 	#print("current position: ", position)
 	#print("path: ",current_room.pathfinding.get_point_path(current_room.pathfinding.get_closest_point(position), current_room.pathfinding.get_closest_point(Vector3(0,0,0))))
+
+
+func _on_enemies_finished_acting() -> void:
+	waiting_for_enemies = false
