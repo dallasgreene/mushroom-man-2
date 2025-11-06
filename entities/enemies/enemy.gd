@@ -1,6 +1,5 @@
-extends CharacterBody3D
+extends Creature
 class_name Enemy
-var parent_room: Room
 var moving_next_turn: bool = false
 var state: State = State.IDLE
 var path
@@ -8,6 +7,7 @@ var local_attack_time
 @export var attack_component: AttackComponent
 @export var movement_component: EnemyMovementComponent
 @onready var sprite = %Sprite3D
+@export var attack_data: AttackData
 
 enum State{
 	IDLE,
@@ -17,6 +17,8 @@ enum State{
 
 func _ready() -> void:
 	if attack_component != null:
+		assert(attack_data!=null, "Please set attack data")
+		attack_component.attack_data = attack_data
 		SignalBus.enemy_attack_start.connect(_enemy_attack_start)
 	if movement_component != null:
 		SignalBus.enemy_movement_start.connect(_enemy_movement_start)
@@ -25,7 +27,7 @@ func _ready() -> void:
 	while !current_parent is Room:
 		current_parent = current_parent.get_parent()
 	parent_room = current_parent
-	local_attack_time = attack_component.time_to_attack
+	local_attack_time = attack_component.attack_data.time_to_attack + 1
 
 func _exit_tree() -> void:
 	if attack_component != null:
@@ -56,9 +58,10 @@ func _enemy_attack_start():
 			moving_next_turn = false
 			#print("in here")
 			local_attack_time -= 1
+			parent_room.attack_count_down(self)
 			if local_attack_time == 0:
 				attack_component.attack()
-				local_attack_time = attack_component.time_to_attack
+				local_attack_time = attack_component.attack_data.time_to_attack + 1
 				state = State.MOVING
 		elif attack_component == null:
 			state = State.MOVING	

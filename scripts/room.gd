@@ -8,14 +8,13 @@ var pathfinding: AStar3D = null
 var room_id: int = -1
 ## Structure: { [x_coord]: { [z_coord]: Tile } }
 var tile_states: Dictionary = {}
-## Same structure as above
+## Structure { Creature reference: {[Tile]: as a set} }
 var attacked_tiles: Dictionary = {}
 
 
 func _ready() -> void:
 	init_pathfinding.call_deferred()
 	room_id = Global.get_next_available_room_id()
-
 
 func add_points_from_moveable_area(aggregator: Dictionary, move_area: MoveableArea) -> void:
 	for x_index in range(
@@ -95,8 +94,29 @@ func attempt_to_move_player(new_position: Vector3i) -> bool:
 	move_entity(old_pos, new_position, Global.player)
 	return true
 
-func mark_attack_tile(location: Vector3i):
-	print(location)
-
+func mark_attack_tile(creature: Creature, location: Vector3i, attack_data: AttackData):
+	if not attacked_tiles.has(creature):
+		attacked_tiles[creature] = {}
+	var tile_affected = get_tile(location.x,location.z)
+	if tile_affected == null:
+		return
+	
+	if attacked_tiles[creature].has(tile_affected):
+		return
+	attacked_tiles[creature][tile_affected] = {}
+	if !tile_affected.attack_queue.has(creature):
+		tile_affected.attack_queue[creature] = null
+	attack_data.remaining_time_in_attack = attack_data.time_to_attack
+	tile_affected.attack_queue[creature] = attack_data
+		
 func get_tile(x_coord: int, z_coord: int) -> Tile:
-	return tile_states[x_coord][z_coord]
+	if tile_states.has(x_coord):
+		if tile_states[x_coord].has(z_coord):	
+			return tile_states[x_coord][z_coord]
+	return null
+	
+func attack_count_down(creature: Creature):
+	for tiles in attacked_tiles[creature].keys():
+		if tiles.attack_queue.has(creature):
+			tiles.decrement_queue(creature)
+			

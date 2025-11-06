@@ -1,14 +1,17 @@
-extends Node3D
+extends Creature
 class_name Player
 
 var end_rotation: Vector3
 var moving = false
 var waiting_for_enemies = false
-@export var current_room: Room
 
 @onready var collision_shape = %CollisionShape3D
 
 func _ready():
+	var current_parent = get_parent()
+	while !current_parent is Room:
+		current_parent = current_parent.get_parent()
+	parent_room = current_parent
 	Global.register_player(self)
 	SignalBus.enemies_finished_acting.connect(_on_enemies_finished_acting)
 
@@ -39,11 +42,11 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		(2 * lateral_direction) * transform.basis.z +
 		(2 * forward_direction) * transform.basis.x
 	)
-	var can_move_to_position = current_room.pathfinding.get_point_position(
-		current_room.pathfinding.get_closest_point(desired_position)
+	var can_move_to_position = parent_room.pathfinding.get_point_position(
+		parent_room.pathfinding.get_closest_point(desired_position)
 	)
 	if desired_position.is_equal_approx(can_move_to_position):
-		if not current_room.attempt_to_move_player(Vector3i(
+		if not parent_room.attempt_to_move_player(Vector3i(
 			roundi(desired_position.x),
 			roundi(desired_position.y),
 			roundi(desired_position.z),

@@ -41,5 +41,3 @@ func _on_moving_finish():
 	enemy.global_position.x = roundf(enemy.global_position.x)
 	enemy.global_position.y = roundf(enemy.global_position.y)
 	enemy.global_position.z = roundf(enemy.global_position.z)
-	print("current position: ", global_position)
-	print("path: ",parent_room.pathfinding.get_point_path(parent_room.pathfinding.get_closest_point(get_parent().global_position), parent_room.pathfinding.get_closest_point(Global.player.global_position)))
