@@ -1,16 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://2lr510wls0xx"]
+[gd_scene load_steps=5 format=3 uid="uid://2lr510wls0xx"]
 
 [ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_xpsbv"]
 [ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/monsters2-2.png" id="2_nec4x"]
-[ext_resource type="PackedScene" uid="uid://bfn71a7j1p7ma" path="res://entities/enemies/EnemyMovementComponent.tscn" id="3_rohuw"]
-[ext_resource type="PackedScene" uid="uid://cm3vhk4c1ggfg" path="res://entities/attacks/attack_component.tscn" id="4_nec4x"]
+[ext_resource type="Script" uid="uid://cr2q5etoif6yx" path="res://entities/attacks/attack_component.gd" id="4_nec4x"]
+[ext_resource type="Script" uid="uid://ttpmf3rf1k64" path="res://entities/enemies/enemy_movement_component.gd" id="4_rohuw"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xpsbv"]
-
-[node name="SlimeEnemy" type="CharacterBody3D" node_paths=PackedStringArray("attack_component", "movement_component")]
+[node name="SlimeEnemy" type="Node3D" node_paths=PackedStringArray("attack_component", "movement_component")]
 script = ExtResource("1_xpsbv")
 attack_component = NodePath("AttackComponent")
 movement_component = NodePath("EnemyMovementComponent")
+metadata/_custom_type_script = "uid://cyw4wqma0kh8p"
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 unique_name_in_owner = true
@@ -18,13 +17,14 @@ offset = Vector2(0, 32)
 billboard = 2
 texture = ExtResource("2_nec4x")
 
-[node name="Hurtbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29297078, 0)
-shape = SubResource("BoxShape3D_xpsbv")
-
-[node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
-distance = 4
+[node name="AttackComponent" type="Area3D" parent="."]
+script = ExtResource("4_nec4x")
+distance = 1
+attack_type = 3
 enemy_attack = true
-time_to_attack = 5
+time_to_attack = 2
+metadata/_custom_type_script = "uid://cr2q5etoif6yx"
 
-[node name="EnemyMovementComponent" parent="." instance=ExtResource("3_rohuw")]
+[node name="EnemyMovementComponent" type="Node3D" parent="."]
+script = ExtResource("4_rohuw")
+metadata/_custom_type_script = "uid://ttpmf3rf1k64"

@@ -12,9 +12,8 @@ script = ExtResource("2_2v6d3")
 [node name="SlimeEnemy" parent="." index="1" instance=ExtResource("2_mk5js")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0.096, -11)
 
-[node name="Player" parent="." index="2" node_paths=PackedStringArray("current_room") instance=ExtResource("3_f5cve")]
+[node name="Player" parent="." index="2" instance=ExtResource("3_f5cve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-current_room = NodePath("..")
 
 [node name="MoveableArea" type="CSGBox3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -0.66184044, -6)

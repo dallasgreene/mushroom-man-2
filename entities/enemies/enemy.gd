@@ -1,6 +1,5 @@
-extends CharacterBody3D
+extends Creature
 class_name Enemy
-var parent_room: Room
 var moving_next_turn: bool = false
 var state: State = State.IDLE
 var path
@@ -8,6 +7,7 @@ var local_attack_time
 @export var attack_component: AttackComponent
 @export var movement_component: EnemyMovementComponent
 @onready var sprite = %Sprite3D
+var delay_frames: int = -1
 
 enum State{
 	IDLE,
@@ -24,8 +24,14 @@ func _ready() -> void:
 	var current_parent = get_parent()
 	while !current_parent is Room:
 		current_parent = current_parent.get_parent()
-	parent_room = current_parent
+	current_room = current_parent
 	local_attack_time = attack_component.time_to_attack
+	var position_int = Vector3i(
+		roundi(global_position.x),
+		roundi(global_position.y),
+		roundi(global_position.z),
+	)
+	tile_position = position_int
 
 func _exit_tree() -> void:
 	if attack_component != null:
@@ -33,19 +39,30 @@ func _exit_tree() -> void:
 	if movement_component != null:
 		SignalBus.enemy_movement_start.disconnect(_enemy_movement_start)
 
+func _physics_process(delta: float) -> void:
+	if delay_frames < 0:
+		return
+	elif delay_frames == 0:
+		attempt_attack()
+	delay_frames -= 1
+
+func attempt_attack():
+	state = State.ATTACKING
+	path = null
+	attack_component.create_attack.call_deferred(current_room, self)
+
 func _enemy_movement_start():
 	if state == State.MOVING:
 		if movement_component != null:
 			if moving_next_turn:
-				path = movement_component.move(parent_room, self)
+				print("attempting move")
+				path = movement_component.move(current_room, self)
 				#print("path size: ", path.size())
 				#print("attack_component.distance: ", attack_component.distance )
 			moving_next_turn = !moving_next_turn
-			if attack_component!= null:
+			if attack_component != null:
 				if path != null && ((path.size()-1 <= attack_component.distance) || (path.size()+1 == 1 && attack_component.attack_type == attack_component.AttackType.CLEAVE)):
-					state = State.ATTACKING
-					path = null
-					attack_component.create_attack(parent_room,self)
+					delay_frames = 2
 					#print(AttackComponent.AttackType.keys()[attack_component.attack_type])
 	SignalBus.enemy_movement_received.emit()
 

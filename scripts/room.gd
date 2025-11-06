@@ -15,6 +15,9 @@ var attacked_tiles: Dictionary = {}
 func _ready() -> void:
 	init_pathfinding.call_deferred()
 	room_id = Global.get_next_available_room_id()
+	for child in get_children():
+		if child is Player:
+			child.current_room = self
 
 
 func add_points_from_moveable_area(aggregator: Dictionary, move_area: MoveableArea) -> void:
