@@ -11,7 +11,45 @@ enum AttackType{
 	CLEAVE,
 	CIRCLE
 }
+
+func new_create_attack(parent_room: Room, parent_entity: Node3D):
+	var attack_area: Area3D = null
+	match attack_type:
+		AttackType.CONE:
+			pass
+		AttackType.LINE:
+			pass
+		AttackType.CLEAVE:
+			pass
+		AttackType.CIRCLE:
+			pass
 	
+	var attack_area_rid = attack_area.get_rid()
+	var raycast = RayCast3D.new()
+	raycast.collide_with_areas = true
+	raycast.collide_with_bodies = false
+	raycast.hit_from_inside = true
+	var lower_x_bound = parent_entity.position.x - (distance * Global.TILE_SIZE) - 0.5
+	var upper_x_bound = parent_entity.position.x + (distance * Global.TILE_SIZE) + 0.5
+	var lower_z_bound = parent_entity.position.z - (distance * Global.TILE_SIZE) - 0.5
+	var upper_z_bound = parent_entity.position.z + (distance * Global.TILE_SIZE) + 0.5
+	var tiles_effected = []
+	for x_coord in parent_room.tile_states:
+		if x_coord < lower_x_bound or x_coord > upper_x_bound:
+			continue
+		for z_coord in parent_room.tile_states[x_coord]:
+			if z_coord < lower_z_bound or z_coord > upper_z_bound:
+				continue
+			raycast.position = Vector3(x_coord, parent_entity.position.y - 1, z_coord)
+			raycast.target_position = Vector3(x_coord, parent_entity.position.y + 1, z_coord)
+			raycast.force_raycast_update()
+			if raycast.get_collider_rid() == attack_area_rid:
+				tiles_effected.push_back(Vector3i(
+					roundi(x_coord),
+					roundi(parent_entity.position.y),
+					roundi(z_coord),
+				))
+
 func create_attack(parent_room: Room, parent_entity: Node3D):
 	match attack_type:
 		AttackType.CONE:	
