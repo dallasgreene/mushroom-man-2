@@ -5,6 +5,7 @@ class_name Minimap extends RefCounted
 ## in the minimap texture.
 var moveable_positions: Dictionary = {}
 var base_image_texture: ImageTexture
+var tile_pixel_size: int = 1
 
 
 ## Returns the pixel position on the minimap texture that corresponds to the
@@ -21,13 +22,14 @@ func _init(position_dict: Dictionary) -> void:
 	for x_coord in position_dict.keys():
 		y_min = min(y_min, min.callv(position_dict[x_coord].keys()))
 		y_max = max(y_max, max.callv(position_dict[x_coord].keys()))
-	
+
 	var x_size = x_max - x_min + Global.TILE_SIZE
 	var y_size = y_max - y_min + Global.TILE_SIZE
 	var resize_factor = min(
 		floori(float(Minimaps.MINIMAP_SIZE.x) / x_size),
 		floori(float(Minimaps.MINIMAP_SIZE.y) / y_size),
 	)
+	tile_pixel_size = resize_factor * Global.TILE_SIZE
 	x_size *= resize_factor
 	y_size *= resize_factor
 
@@ -46,5 +48,4 @@ func _init(position_dict: Dictionary) -> void:
 			rect_to_fill.position += Vector2i(1, 1)
 			rect_to_fill.size -= Vector2i(2, 2)
 			room_image.fill_rect(rect_to_fill, Color.WHITE)
-	#room_image.resize(x_size * resize_factor, y_size * resize_factor, Image.INTERPOLATE_NEAREST)
 	base_image_texture = ImageTexture.create_from_image(room_image)
