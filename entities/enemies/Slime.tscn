@@ -24,6 +24,6 @@ shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
 distance = 3
-attack_type = 3
+attack_type = 2
 
 [node name="EnemyMovementComponent" parent="." instance=ExtResource("3_rohuw")]

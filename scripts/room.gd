@@ -8,7 +8,7 @@ var pathfinding: AStar3D = null
 var room_id: int = -1
 ## Structure: { [x_coord]: { [z_coord]: Tile } }
 var tile_states: Dictionary = {}
-## Structure { Creature reference: {[Tile]: as a set} }
+## Structure { Creature reference: {[Tile]: as a set} } All of the tiles that are affected by a singular creature
 var attacked_tiles: Dictionary = {}
 
 
@@ -106,7 +106,7 @@ func mark_attack_tile(creature: Creature, location: Vector3i, attack_data: Attac
 	attacked_tiles[creature][tile_affected] = {}
 	if !tile_affected.attack_queue.has(creature):
 		tile_affected.attack_queue[creature] = null
-	attack_data.remaining_time_in_attack = attack_data.time_to_attack
+	attack_data.remaining_time_in_attack = attack_data.time_to_attack + 1
 	tile_affected.attack_queue[creature] = attack_data
 		
 func get_tile(x_coord: int, z_coord: int) -> Tile:
@@ -116,7 +116,8 @@ func get_tile(x_coord: int, z_coord: int) -> Tile:
 	return null
 	
 func attack_count_down(creature: Creature):
-	for tiles in attacked_tiles[creature].keys():
-		if tiles.attack_queue.has(creature):
-			tiles.decrement_queue(creature)
+	for tile in attacked_tiles[creature].keys():
+		if tile.attack_queue.has(creature):
+			if tile.decrement_queue(creature):
+				attacked_tiles[creature].erase(tile)
 			
