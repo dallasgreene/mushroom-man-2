@@ -8,11 +8,16 @@ const ENEMY_MOVE_SPEED = 0.1
 const TILE_SIZE: int = 2
 
 var player: Player
+var hotbar: Hotbar
 var next_room_id: int = 0
 
 
-func register_player(player_input:Player):
+func register_player(player_input: Player):
 	self.player = player_input
+
+
+func register_hotbar(hotbar_input: Hotbar) -> void:
+	hotbar = hotbar_input
 
 
 ## Every room should call this on _ready to get its ID

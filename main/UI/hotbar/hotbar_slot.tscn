@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://buix61sua2ci5"]
+
+[ext_resource type="Script" uid="uid://coeq80n6dsrqg" path="res://main/UI/hotbar/hotbar_slot.gd" id="1_yn0y3"]
+[ext_resource type="Texture2D" uid="uid://myt3d7u8pgve" path="res://assets/hotbar/tile_0016.png" id="2_yjap4"]
+[ext_resource type="Texture2D" uid="uid://dnjsm6x0m63p" path="res://assets/hotbar/tile_0032.png" id="3_6p7by"]
+
+[node name="HotbarSlot" type="Control"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yn0y3")
+
+[node name="background" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_yjap4")
+centered = false
+
+[node name="selected_border" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(3, 3)
+texture = ExtResource("3_6p7by")
+centered = false
