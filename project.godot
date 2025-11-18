@@ -28,11 +28,6 @@ EnemyAction="*res://globals/enemy_action.gd"
 
 gdscript/warnings/unused_signal=0
 
-[display]
-
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-
 [input]
 
 move_forward={

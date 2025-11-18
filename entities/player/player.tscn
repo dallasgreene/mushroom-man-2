@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2ghkvo8n23rm"]
+[gd_scene load_steps=4 format=3 uid="uid://c2ghkvo8n23rm"]
 
 [ext_resource type="Script" uid="uid://cndg235lnk8dk" path="res://entities/player/player.gd" id="1_symyc"]
+[ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="2_abrql"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_abrql"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_symyc")
+health_component = NodePath("HealthComponent")
 
 [node name="CameraPitch" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -19,3 +21,6 @@ current = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_abrql")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_abrql")]
+max_health = 10

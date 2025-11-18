@@ -16,6 +16,7 @@ enum State{
 }
 
 func _ready() -> void:
+	is_player = false
 	if attack_component != null:
 		assert(attack_data!=null, "Please set attack data")
 		attack_component.attack_data = attack_data

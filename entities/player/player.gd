@@ -8,6 +8,7 @@ var waiting_for_enemies = false
 @onready var collision_shape = %CollisionShape3D
 
 func _ready():
+	is_player = true
 	var current_parent = get_parent()
 	while !current_parent is Room:
 		current_parent = current_parent.get_parent()
