@@ -6,8 +6,19 @@ var moving = false
 var waiting_for_enemies = false
 
 @onready var collision_shape = %CollisionShape3D
+var basic_attack:AttackData 
+var circle_attack:AttackData 
+var cleave_attack:AttackData 
+var cone_attack:AttackData 
+var line_attack:AttackData
 
 func _ready():
+	basic_attack = load("uid://dcg11ia5f61g1")
+	circle_attack = load("uid://d3cq6sl20vjsp")
+	cleave_attack = load("uid://ggv27lhwntyg")
+	cone_attack = load("uid://dynpxwwmyndsm")
+	line_attack = load("uid://ji78awr6rs5t")
+	attack_component.attack_data = basic_attack
 	is_player = true
 	var current_parent = get_parent()
 	while !current_parent is Room:
@@ -35,7 +46,9 @@ func _physics_process(_delta: float) -> void:
 			moving = true
 			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
-			pass
+			attack_component.create_attack(parent_room,self,attack_component.attack_data)
+			parent_room.attack_count_down(self)			
+			EnemyAction.enemies_take_turn()
 
 func attempt_move(forward_direction: int, lateral_direction: int):
 	var desired_position = (
@@ -91,3 +104,7 @@ func _on_rotating_finish():
 
 func _on_enemies_finished_acting() -> void:
 	waiting_for_enemies = false
+
+
+func _on_health_component_died() -> void:
+	print("You are dead")

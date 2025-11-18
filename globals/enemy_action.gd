@@ -16,10 +16,12 @@ func _ready():
 func enemies_take_turn() -> void:
 	enemy_movement_signal_count_limit = SignalBus.enemy_movement_start.get_connections().size()
 	enemy_attack_signal_count_limit = SignalBus.enemy_attack_start.get_connections().size()
-	if SignalBus.enemy_movement_received.get_connections().size()>0:
+	if enemy_movement_signal_count_limit>0:
 		SignalBus.enemy_movement_start.emit()
-	elif SignalBus.enemy_attack_received.get_connections().size()>0:
+	elif enemy_attack_signal_count_limit>0:
 		SignalBus.enemy_attack_start.emit()
+	else:
+		SignalBus.enemies_finished_acting.emit()
 
 func _enemy_movement_counter():
 	enemy_movement_signal_count += 1

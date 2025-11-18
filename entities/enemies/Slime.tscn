@@ -8,10 +8,11 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpsbv"]
 
-[node name="SlimeEnemy" type="CharacterBody3D" node_paths=PackedStringArray("attack_component", "movement_component")]
+[node name="SlimeEnemy" type="CharacterBody3D" node_paths=PackedStringArray("movement_component", "health_component", "attack_component")]
 script = ExtResource("1_xpsbv")
-attack_component = NodePath("AttackComponent")
 movement_component = NodePath("EnemyMovementComponent")
+health_component = NodePath("HealthComponent")
+attack_component = NodePath("AttackComponent")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 unique_name_in_owner = true
@@ -24,9 +25,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29297078, 0)
 shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
-distance = 3
-attack_type = 2
 
 [node name="EnemyMovementComponent" parent="." instance=ExtResource("3_rohuw")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_rohuw")]
+max_health = 5
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

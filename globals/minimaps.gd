@@ -15,7 +15,8 @@ var current_minimap: int = 0
 
 func _ready() -> void:
 	SignalBus.player_moved.connect(_on_player_moved)
-	SignalBus.enemies_finished_acting.connect(update_attacks_on_minimap)
+	SignalBus.enemies_finished_acting.connect(_update_attacks_on_minimap)
+	SignalBus.enemy_died.connect(_update_attacks_on_minimap)
 
 
 func register_parent_viewport(new_view: SubViewport) -> void:
@@ -51,7 +52,7 @@ func _on_player_moved(new_position: Vector3i) -> void:
 	player_sprite.position = pixel_pos
 
 
-func update_attacks_on_minimap() -> void:
+func _update_attacks_on_minimap() -> void:
 	var room = Global.player.parent_room
 	for prev_attack_sprite in attack_sprites_root.get_children():
 		prev_attack_sprite.queue_free()

@@ -4,7 +4,6 @@ var moving_next_turn: bool = false
 var state: State = State.IDLE
 var path
 var local_attack_time
-@export var attack_component: AttackComponent
 @export var movement_component: EnemyMovementComponent
 @onready var sprite = %Sprite3D
 @export var attack_data: AttackData
@@ -35,6 +34,8 @@ func _exit_tree() -> void:
 		SignalBus.enemy_attack_start.disconnect(_enemy_attack_start)
 	if movement_component != null:
 		SignalBus.enemy_movement_start.disconnect(_enemy_movement_start)
+	parent_room.creature_died(self)
+	SignalBus.enemy_died.emit()
 
 func _enemy_movement_start():
 	if state == State.MOVING:
@@ -42,14 +43,12 @@ func _enemy_movement_start():
 			if moving_next_turn:
 				path = movement_component.move(parent_room, self)
 				#print("path size: ", path.size())
-				#print("attack_component.distance: ", attack_component.distance )
 			moving_next_turn = !moving_next_turn
 			if attack_component!= null:
-				if path != null && ((path.size()-1 <= attack_component.distance) || (path.size()+1 == 1 && attack_component.attack_type == attack_component.AttackType.CLEAVE)):
+				if path != null && ((path.size()-1 <= attack_component.attack_data.distance) || (path.size()+1 == 1 && attack_component.attack_data.attack_type == AttackData.AttackType.CLEAVE)):
 					state = State.ATTACKING
 					path = null
-					attack_component.create_attack(parent_room,self)
-					#print(AttackComponent.AttackType.keys()[attack_component.attack_type])
+					attack_component.create_attack(parent_room,self,attack_component.attack_data)
 	SignalBus.enemy_movement_received.emit()
 
 func _enemy_attack_start():
@@ -67,3 +66,7 @@ func _enemy_attack_start():
 		elif attack_component == null:
 			state = State.MOVING	
 	SignalBus.enemy_attack_received.emit()
+
+
+func _on_health_component_died() -> void:
+	queue_free()

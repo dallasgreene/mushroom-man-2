@@ -13,6 +13,7 @@ time_to_attack = 3
 damage = 2
 is_enemy_attack = true
 distance = 3
+attack_type = 1
 metadata/_custom_type_script = "uid://8h6r04bd6qjt"
 
 [node name="room_1" instance=ExtResource("1_10ng7")]
