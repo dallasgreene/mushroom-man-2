@@ -22,6 +22,9 @@ func _process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("hotbar_select"):
 		if currently_selected >= 0:
 			hotbar_slots[currently_selected].unselect()
+		if active_index == currently_selected:
+			currently_selected = -1
+			return
 		hotbar_slots[active_index].select()
 		currently_selected = active_index
 
