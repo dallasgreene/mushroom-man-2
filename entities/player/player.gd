@@ -13,6 +13,7 @@ var cone_attack:AttackData
 var line_attack:AttackData
 
 func _ready():
+	creature_id = 0
 	basic_attack = load("uid://dcg11ia5f61g1")
 	circle_attack = load("uid://d3cq6sl20vjsp")
 	cleave_attack = load("uid://ggv27lhwntyg")

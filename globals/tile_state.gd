@@ -6,5 +6,5 @@ var rooms: Dictionary[int, Room] = {}
 var current_room: int = 0
 
 
-func register_room(room_id: int, room: Room) -> void:
-	rooms[room_id] = room
+func register_room(room: Room) -> void:
+	rooms[room.room_id] = room

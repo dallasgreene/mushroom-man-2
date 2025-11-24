@@ -1,0 +1,14 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dg003lr252uxa"]
+
+[ext_resource type="Texture2D" uid="uid://btu440fgncjhu" path="res://assets/minimap/creature_atlas.png" id="1_fudw8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ds5h"]
+texture = ExtResource("1_fudw8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/6 = SubResource("TileSetAtlasSource_4ds5h")
+tile_proxies/coords_level = [[4, Vector2i(0, 0)], [6, Vector2i(0, 0)], [5, Vector2i(0, 0)], [6, Vector2i(1, 0)]]

@@ -10,6 +10,7 @@ const TILE_SIZE: int = 2
 var player: Player
 var hotbar: Hotbar
 var next_room_id: int = 0
+var next_creature_id: int = 1 # starts at 1 because player is always 0
 
 
 func register_player(player_input: Player):
@@ -24,3 +25,9 @@ func register_hotbar(hotbar_input: Hotbar) -> void:
 func get_next_available_room_id() -> int:
 	next_room_id += 1
 	return next_room_id - 1
+
+
+## Every creature should call this on _ready to get its ID
+func get_next_available_creature_id() -> int:
+	next_creature_id += 1
+	return next_creature_id - 1
