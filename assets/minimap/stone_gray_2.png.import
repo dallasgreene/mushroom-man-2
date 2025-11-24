@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfwy765b3r78w"
-path="res://.godot/imported/Transparent X.png-ad6afffe6dcb18e2950f92ce64c96099.ctex"
+uid="uid://cchirtlo66xww"
+path="res://.godot/imported/stone_gray_2.png-da67c162fd084ca1731c372db77730b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/test/Transparent X.png"
-dest_files=["res://.godot/imported/Transparent X.png-ad6afffe6dcb18e2950f92ce64c96099.ctex"]
+source_file="res://assets/minimap/stone_gray_2.png"
+dest_files=["res://.godot/imported/stone_gray_2.png-da67c162fd084ca1731c372db77730b0.ctex"]
 
 [params]
 
