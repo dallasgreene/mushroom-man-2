@@ -105,6 +105,7 @@ func _on_rotating_finish():
 
 func _on_enemies_finished_acting() -> void:
 	waiting_for_enemies = false
+	parent_room.minimap.redraw_minimap(parent_room.tile_states)
 
 
 func _on_health_component_died() -> void:

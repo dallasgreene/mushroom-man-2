@@ -30,12 +30,10 @@ func _ready() -> void:
 	local_attack_time = attack_component.attack_data.time_to_attack + 1
 
 func _exit_tree() -> void:
-	if attack_component != null:
+	if attack_component != null && SignalBus.enemy_attack_start.is_connected(_enemy_attack_start):
 		SignalBus.enemy_attack_start.disconnect(_enemy_attack_start)
-	if movement_component != null:
+	if movement_component != null && SignalBus.enemy_movement_start.is_connected(_enemy_movement_start):
 		SignalBus.enemy_movement_start.disconnect(_enemy_movement_start)
-	parent_room.creature_died(self)
-	SignalBus.enemy_died.emit()
 
 func _enemy_movement_start():
 	if state == State.MOVING:
@@ -60,7 +58,6 @@ func _enemy_attack_start():
 			local_attack_time -= 1
 			parent_room.attack_count_down(self)
 			if local_attack_time == 0:
-				attack_component.attack()
 				local_attack_time = attack_component.attack_data.time_to_attack + 1
 				state = State.MOVING
 		elif attack_component == null:
@@ -69,4 +66,9 @@ func _enemy_attack_start():
 
 
 func _on_health_component_died() -> void:
+	if attack_component != null:
+		SignalBus.enemy_attack_start.disconnect(_enemy_attack_start)
+	if movement_component != null:
+		SignalBus.enemy_movement_start.disconnect(_enemy_movement_start)
+	parent_room.creature_died(self)
 	queue_free()

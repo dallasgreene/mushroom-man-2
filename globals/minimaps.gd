@@ -12,7 +12,6 @@ var current_room: Room = null
 
 func _ready() -> void:
 	SignalBus.player_moved.connect(_on_player_moved)
-	#SignalBus.enemy_died.connect(_update_attacks_on_minimap)
 
 
 func register_parent_viewport(new_view: SubViewport) -> void:
@@ -34,5 +33,6 @@ func set_minimap_to_viewport() -> void:
 
 
 func _on_player_moved(_new_position: Vector3i) -> void:
-	current_room.minimap.redraw_minimap(current_room.tile_states)
+	#current_room.minimap.redraw_minimap(current_room.tile_states)
 	# TODO center minimap around player position
+	pass
