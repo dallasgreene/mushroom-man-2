@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://d3cq6sl20vjsp"]
+[gd_resource type="Resource" script_class="AttackData" load_steps=3 format=3 uid="uid://d3cq6sl20vjsp"]
 
 [ext_resource type="Script" uid="uid://8h6r04bd6qjt" path="res://entities/attacks/attack_data.gd" id="1_hphwh"]
+[ext_resource type="Texture2D" uid="uid://sq4e7ynrwvgk" path="res://assets/hotbar/attacks/tile_0127.png" id="1_l0iow"]
 
 [resource]
 script = ExtResource("1_hphwh")
 damage = 1
+distance = 3
 attack_type = 3
+icon = ExtResource("1_l0iow")
 metadata/_custom_type_script = "uid://8h6r04bd6qjt"

@@ -6,6 +6,7 @@ var moving = false
 var waiting_for_enemies = false
 
 @onready var collision_shape = %CollisionShape3D
+var attack_dict:Dictionary[int,AttackData]
 var basic_attack:AttackData 
 var circle_attack:AttackData 
 var cleave_attack:AttackData 
@@ -19,6 +20,11 @@ func _ready():
 	cleave_attack = load("uid://ggv27lhwntyg")
 	cone_attack = load("uid://dynpxwwmyndsm")
 	line_attack = load("uid://ji78awr6rs5t")
+	attack_dict[0]=basic_attack
+	attack_dict[1]=circle_attack
+	attack_dict[2]=cleave_attack
+	attack_dict[3]=cone_attack
+	attack_dict[4]=line_attack
 	attack_component.attack_data = basic_attack
 	is_player = true
 	var current_parent = get_parent()
@@ -27,6 +33,7 @@ func _ready():
 	parent_room = current_parent
 	Global.register_player(self)
 	SignalBus.enemies_finished_acting.connect(_on_enemies_finished_acting)
+	SignalBus.player_ready.emit()
 
 func _physics_process(_delta: float) -> void:
 	if !moving and !waiting_for_enemies:
