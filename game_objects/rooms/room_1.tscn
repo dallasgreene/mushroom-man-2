@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://8h6r04bd6qjt"
 script = ExtResource("2_2v6d3")
 
 [node name="SlimeEnemy" parent="." index="1" instance=ExtResource("2_mk5js")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0.096, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0.12493281, -11)
 attack_data = SubResource("Resource_blg1f")
 
 [node name="Player" parent="." index="2" instance=ExtResource("3_f5cve")]

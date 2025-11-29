@@ -5,6 +5,8 @@ var unfocused_slot: Texture2D = preload("uid://myt3d7u8pgve")
 var focused_slot: Texture2D = preload("uid://go0say7nc85")
 var background: Sprite2D
 var selected_border: Sprite2D
+var slot_id: int
+@onready var icon: Sprite2D = %Icon
 
 var is_focused: bool = false
 var is_selected: bool = false

@@ -10,11 +10,13 @@ var room_id: int = -1
 var tile_states: Dictionary = {}
 ## Structure { Creature reference: {[Tile]: as a set} } All of the tiles that are affected by a singular creature
 var attacked_tiles: Dictionary = {}
+var minimap: Minimap = null
 
 
 func _ready() -> void:
 	init_pathfinding.call_deferred()
 	room_id = Global.get_next_available_room_id()
+	Minimaps._on_entered_room.call_deferred(self)
 
 func add_points_from_moveable_area(aggregator: Dictionary, move_area: MoveableArea) -> void:
 	for x_index in range(
@@ -59,8 +61,8 @@ func init_pathfinding() -> void:
 			for negative_z_coord in negative_points[negative_x_coord].keys():
 				positive_points[negative_x_coord].erase(negative_z_coord)
 	# Register to globals that need the points data
-	Minimaps.register_room(room_id, positive_points)
-	TileState.register_room(room_id, self)
+	minimap = Minimap.new(positive_points, [])
+	TileState.register_room(self)
 	# Create the Astar from the positive points
 	var position_id = 0
 	pathfinding = AStar3D.new()
@@ -79,7 +81,7 @@ func init_pathfinding() -> void:
 	player_tile.occupying_entity = Global.player
 
 
-func move_entity(old_position: Vector3i, new_position: Vector3i, entity: Node3D) -> void:
+func move_creature(old_position: Vector3i, new_position: Vector3i, entity: Creature) -> void:
 	var prev_tile = get_tile(old_position.x, old_position.z)
 	var new_tile = get_tile(new_position.x, new_position.z)
 	pathfinding.set_point_disabled(prev_tile.astar_position_id, false)
@@ -91,7 +93,7 @@ func move_entity(old_position: Vector3i, new_position: Vector3i, entity: Node3D)
 func attempt_to_move_player(new_position: Vector3i) -> bool:
 	var player_pos = Global.player.position
 	var old_pos = Vector3i(roundi(player_pos.x), roundi(player_pos.y), roundi(player_pos.z))
-	move_entity(old_pos, new_position, Global.player)
+	move_creature(old_pos, new_position, Global.player)
 	return true
 
 func mark_attack_tile(creature: Creature, location: Vector3i, attack_data: AttackData):
@@ -120,11 +122,15 @@ func attack_count_down(creature: Creature):
 		if tile.attack_queue.has(creature):
 			if tile.decrement_queue(creature):
 				attacked_tiles[creature].erase(tile)
+				creature.attack_component.attack()
 			
 func creature_died(creature: Creature):
-	for tile in attacked_tiles[creature].keys():
-		if tile.attack_queue.has(creature):
-			tile.remove_attacks_from_creature(creature)
-			attacked_tiles[creature].erase(tile)
+	if attacked_tiles.has(creature):
+		for tile in attacked_tiles[creature].keys():
+			if tile.attack_queue.has(creature):
+				tile.remove_attacks_from_creature(creature)
+				attacked_tiles[creature].erase(tile)			
 	var creature_current_tile = get_tile(roundi(creature.global_position.x), roundi(creature.global_position.z))
+	creature_current_tile.occupying_entity = null
 	pathfinding.set_point_disabled(creature_current_tile.astar_position_id, false)
+	creature.attack_component.attack()

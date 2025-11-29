@@ -8,4 +8,4 @@ signal enemy_attack_start
 signal enemy_attack_received
 signal enemies_finished_acting
 
-signal enemy_died
+signal player_ready

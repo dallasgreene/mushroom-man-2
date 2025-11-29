@@ -1,0 +1,12 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://f5wth1oaplhs"]
+
+[ext_resource type="Texture2D" uid="uid://cchirtlo66xww" path="res://assets/minimap/stone_gray_2.png" id="1_vigei"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1od27"]
+texture = ExtResource("1_vigei")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_1od27")

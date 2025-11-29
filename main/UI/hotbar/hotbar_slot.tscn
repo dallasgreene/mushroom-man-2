@@ -20,3 +20,9 @@ visible = false
 scale = Vector2(3, 3)
 texture = ExtResource("3_6p7by")
 centered = false
+
+[node name="Icon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(11.5, 11.5)
+scale = Vector2(4.5, 4.5)
+centered = false

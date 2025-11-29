@@ -7,6 +7,7 @@ class_name AttackData
 @export var is_enemy_attack: bool
 @export_range(1,100) var distance: int
 @export var attack_type: AttackType
+@export var icon: Texture2D
 var remaining_time_in_attack: int
 
 enum AttackType{

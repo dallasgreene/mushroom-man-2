@@ -17,7 +17,7 @@ func move(parent_room_input: Room, enemy_input: Enemy) -> PackedVector3Array:
 	if path.size() <= 1:
 		return path
 	var next_position = path[1]
-	parent_room.move_entity(
+	parent_room.move_creature(
 		Vector3i(roundi(enemy.global_position.x), roundi(enemy.global_position.y), roundi(enemy.global_position.z)),
 		Vector3i(roundi(next_position.x), roundi(next_position.y), roundi(next_position.z)),
 		enemy
