@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bjb1fbew3i56c"
+path="res://.godot/imported/Slime Enemy Move 2.wav-6b5bc8188b0be436f21a427d6a376aea.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Slime Enemy/Slime Enemy Move/Slime Enemy Move 2.wav"
+dest_files=["res://.godot/imported/Slime Enemy Move 2.wav-6b5bc8188b0be436f21a427d6a376aea.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

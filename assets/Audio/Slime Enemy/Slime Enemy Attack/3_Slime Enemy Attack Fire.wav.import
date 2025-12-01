@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://brv0c8scob55n"
+path="res://.godot/imported/3_Slime Enemy Attack Fire.wav-cbde40c4e962532f5344b596df12940e.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Slime Enemy/Slime Enemy Attack/3_Slime Enemy Attack Fire.wav"
+dest_files=["res://.godot/imported/3_Slime Enemy Attack Fire.wav-cbde40c4e962532f5344b596df12940e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

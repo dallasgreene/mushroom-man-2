@@ -1,12 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://2lr510wls0xx"]
+[gd_scene load_steps=14 format=3 uid="uid://2lr510wls0xx"]
 
 [ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_xpsbv"]
 [ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/monsters2-2.png" id="2_nec4x"]
 [ext_resource type="PackedScene" uid="uid://bfn71a7j1p7ma" path="res://entities/enemies/EnemyMovementComponent.tscn" id="3_rohuw"]
 [ext_resource type="PackedScene" uid="uid://cm3vhk4c1ggfg" path="res://entities/attacks/attack_component.tscn" id="4_nec4x"]
 [ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="5_rohuw"]
+[ext_resource type="AudioStream" uid="uid://67o2yct6cqkx" path="res://assets/Audio/Slime Enemy/Slime Enemy Move/Slime Enemy Move 1.wav" id="6_0q2nm"]
+[ext_resource type="AudioStream" uid="uid://bjb1fbew3i56c" path="res://assets/Audio/Slime Enemy/Slime Enemy Move/Slime Enemy Move 2.wav" id="7_wq2mm"]
+[ext_resource type="AudioStream" uid="uid://c3ffope6nlh7i" path="res://assets/Audio/Slime Enemy/Slime Enemy Move/Slime Enemy Move 3.wav" id="8_aafma"]
+[ext_resource type="AudioStream" uid="uid://b1tpdnjere45k" path="res://assets/Audio/Slime Enemy/Slime Enemy Attack/1_Slime Enemy Attack Start.wav" id="9_aafma"]
+[ext_resource type="AudioStream" uid="uid://p84wah3xxe8u" path="res://assets/Audio/Slime Enemy/Slime Enemy Attack/2_Slime Enemy Attack Loop.wav" id="10_miiuu"]
+[ext_resource type="AudioStream" uid="uid://brv0c8scob55n" path="res://assets/Audio/Slime Enemy/Slime Enemy Attack/3_Slime Enemy Attack Fire.wav" id="11_miiuu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpsbv"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0q2nm"]
+streams_count = 3
+stream_0/stream = ExtResource("6_0q2nm")
+stream_1/stream = ExtResource("7_wq2mm")
+stream_2/stream = ExtResource("8_aafma")
 
 [node name="SlimeEnemy" type="CharacterBody3D" node_paths=PackedStringArray("movement_component", "health_component", "attack_component")]
 script = ExtResource("1_xpsbv")
@@ -21,7 +33,7 @@ billboard = 2
 texture = ExtResource("2_nec4x")
 
 [node name="Hurtbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29297078, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292971, 0)
 shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
@@ -30,5 +42,18 @@ shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_rohuw")]
 max_health = 5
+
+[node name="Slime_Move" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0q2nm")
+panning_strength = 1.57
+
+[node name="Slime_Attack Start" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_aafma")
+
+[node name="Slime_Attack Loop" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_miiuu")
+
+[node name="Slime_Attack Fire" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_miiuu")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

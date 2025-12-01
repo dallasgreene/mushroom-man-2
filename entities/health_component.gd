@@ -3,6 +3,7 @@ class_name HealthComponent
 
 @export_range(1,100) var max_health: int
 var current_health: int
+@onready var player_takedamage = $Player_TakeDamage
 
 signal died
 
@@ -12,5 +13,6 @@ func take_damage(damage:int):
 	print("Health was ", current_health)
 	current_health -= damage
 	print("Current Health is ", current_health)
+	player_takedamage.play()
 	if current_health <= 0:
 		died.emit()

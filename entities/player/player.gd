@@ -13,6 +13,9 @@ var cleave_attack:AttackData
 var cone_attack:AttackData 
 var line_attack:AttackData
 
+@onready var player_steps = $Player_Steps
+@onready var player_turncam = $Player_TurnCam
+
 func _ready():
 	creature_id = 0
 	basic_attack = load("uid://dcg11ia5f61g1")
@@ -84,9 +87,11 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		
 func move_player(value: Vector3):
 	%CameraPitch.global_position = value
+	player_steps.play()
 
 func rotate_player(value: Vector3):
 	rotation_degrees = value
+	player_turncam.play()
 
 func _on_moving_finish():
 	var final_pos = Vector3(%CollisionShape3D.global_position.x, 0, %CollisionShape3D.global_position.z)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://duc4ng1vrr0by"
+path="res://.godot/imported/Player Step 2.wav-05e238cd09f88ec037bbc57c684c0dc2.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Player Sounds/Player Steps/Player Step 2.wav"
+dest_files=["res://.godot/imported/Player Step 2.wav-05e238cd09f88ec037bbc57c684c0dc2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://22rt8jrch1qs"]
+[gd_scene load_steps=3 format=3 uid="uid://22rt8jrch1qs"]
 
 [ext_resource type="Script" uid="uid://bvmoh4nq4jdbu" path="res://entities/health_component.gd" id="1_rgctf"]
+[ext_resource type="AudioStream" uid="uid://csjvtq5ou1jjj" path="res://assets/Audio/Player Sounds/Player Take Damage.wav" id="2_1acsh"]
 
 [node name="HealthComponent" type="Node3D"]
 script = ExtResource("1_rgctf")
+
+[node name="Player_TakeDamage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_1acsh")
