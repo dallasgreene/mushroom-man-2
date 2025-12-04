@@ -4,4 +4,3 @@
 
 [node name="AttackComponent" type="Area3D"]
 script = ExtResource("1_1dpkf")
-distance = 1
