@@ -43,5 +43,6 @@ layout_mode = 1
 [node name="Dungeon Ambience" type="AudioStreamPlayer2D" parent="World"]
 stream = ExtResource("3_c651c")
 autoplay = true
+bus = &"SFX Bus"
 
 [node name="room_1" parent="World" instance=ExtResource("3_xwkvk")]

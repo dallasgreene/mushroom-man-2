@@ -5,6 +5,8 @@ class_name HealthComponent
 var current_health: int
 @onready var player_takedamage = $Player_TakeDamage
 
+@onready var slime_takedamage = $"Slime_Take Damage"
+
 signal died
 
 func _ready() -> void:

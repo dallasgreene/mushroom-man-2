@@ -15,6 +15,7 @@ var line_attack:AttackData
 
 @onready var player_steps = $Player_Steps
 @onready var player_turncam = $Player_TurnCam
+@onready var player_blade_swing = $Player_Blade_Swing
 
 func _ready():
 	creature_id = 0
@@ -57,6 +58,7 @@ func _physics_process(_delta: float) -> void:
 			moving = true
 			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
+			player_blade_swing.play()
 			attack_component.create_attack(parent_room,self,attack_component.attack_data)
 			parent_room.attack_count_down(self)			
 			EnemyAction.enemies_take_turn()
