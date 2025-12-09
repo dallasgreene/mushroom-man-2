@@ -79,3 +79,4 @@ stream = ExtResource("12_a1qjk")
 bus = &"SFX Bus"
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="took_damage" from="HealthComponent" to="." method="_on_health_component_took_damage"]
