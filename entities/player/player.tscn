@@ -48,6 +48,7 @@ shape = SubResource("BoxShape3D_abrql")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_abrql")]
 max_health = 10
+display_healthbar = false
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_sglur")]
 
