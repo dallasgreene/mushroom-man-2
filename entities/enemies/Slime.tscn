@@ -44,27 +44,33 @@ shape = SubResource("BoxShape3D_xpsbv")
 [node name="HealthComponent" parent="." instance=ExtResource("5_rohuw")]
 max_health = 5
 
-[node name="Slime_Move" type="AudioStreamPlayer3D" parent="."]
+[node name="MoveSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_0q2nm")
 panning_strength = 1.57
 bus = &"SFX Bus"
 
-[node name="Slime_Attack Start" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackStartSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("9_aafma")
 bus = &"SFX Bus"
 
-[node name="Slime_Attack Loop" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackLoopSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("10_miiuu")
 bus = &"SFX Bus"
 
-[node name="Slime_Attack Fire" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackFireSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("11_miiuu")
 bus = &"SFX Bus"
 
-[node name="Slime_Take Damage" type="AudioStreamPlayer3D" parent="."]
+[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("12_jmdun")
 volume_db = -9.379
 max_polyphony = 2
 bus = &"SFX Bus"
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="took_damage" from="HealthComponent" to="." method="_on_health_component_took_damage"]

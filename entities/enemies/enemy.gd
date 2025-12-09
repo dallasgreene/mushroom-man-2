@@ -9,11 +9,6 @@ var attack_started = false
 @onready var sprite = %Sprite3D
 @export var attack_data: AttackData
 
-@onready var slime_move = $Slime_Move
-@onready var slime_AttackStart = $"Slime_Attack Start"
-@onready var slime_AttackLoop = $"Slime_Attack Loop"
-@onready var slime_AttackFire = $"Slime_Attack Fire"
-
 enum State{
 	IDLE,
 	MOVING,
@@ -46,7 +41,7 @@ func _enemy_movement_start():
 		if movement_component != null:
 			if moving_next_turn:
 				path = movement_component.move(parent_room, self)
-				slime_move.play()
+				%MoveSound.play()
 				#print("path size: ", path.size())
 			moving_next_turn = !moving_next_turn
 			if attack_component!= null:
@@ -58,20 +53,19 @@ func _enemy_movement_start():
 
 func _enemy_attack_start():
 	if state == State.ATTACKING:
-		if not attack_started:
-			slime_AttackStart.play()
-			slime_AttackLoop.play()
-			attack_started = true
 		#print(attack_component == null)
 		if attack_component != null && local_attack_time > 0:
+			if attack_data.time_to_attack + 1 == local_attack_time:
+				$AttackStartSound.play()
+				$AttackLoopSound.play()
 			moving_next_turn = false
 			#print("in here")
 			local_attack_time -= 1
 			parent_room.attack_count_down(self)
 			if local_attack_time == 0:
 				local_attack_time = attack_component.attack_data.time_to_attack + 1
-				slime_AttackFire.play()
-				slime_AttackLoop.stop()
+				$AttackFireSound.play()
+				$AttackLoopSound.stop()
 				state = State.MOVING
 				attack_started = false
 		elif attack_component == null:
@@ -85,4 +79,12 @@ func _on_health_component_died() -> void:
 	if movement_component != null:
 		SignalBus.enemy_movement_start.disconnect(_enemy_movement_start)
 	parent_room.creature_died(self)
+	#I am doing this for now because it sounds better to hear the hit sound, but as it stands
+	#if the enemy dies so does the stream player so i am keeping the enemy in until the sound finishes.
+	#We can talk about this in discord, because this probably isnt the way we want to do it?
+	await %TakeDamageSound.finished
 	queue_free()
+
+
+func _on_health_component_took_damage() -> void:
+	%TakeDamageSound.play()

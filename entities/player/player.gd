@@ -13,10 +13,6 @@ var cleave_attack:AttackData
 var cone_attack:AttackData 
 var line_attack:AttackData
 
-@onready var player_steps = $Player_Steps
-@onready var player_turncam = $Player_TurnCam
-@onready var player_blade_swing = $Player_Blade_Swing
-
 func _ready():
 	creature_id = 0
 	basic_attack = load("uid://dcg11ia5f61g1")
@@ -58,7 +54,7 @@ func _physics_process(_delta: float) -> void:
 			moving = true
 			create_tween().tween_method(rotate_player,rotation_degrees,end_rotation,Global.ROTATE_SPEED).finished.connect(_on_rotating_finish)
 		if Input.is_action_just_pressed("melee_attack"):
-			player_blade_swing.play()
+			%BladeSwingSound.play()
 			attack_component.create_attack(parent_room,self,attack_component.attack_data)
 			parent_room.attack_count_down(self)			
 			EnemyAction.enemies_take_turn()
@@ -89,11 +85,11 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		
 func move_player(value: Vector3):
 	%CameraPitch.global_position = value
-	player_steps.play()
+	%StepsSound.play()
 
 func rotate_player(value: Vector3):
 	rotation_degrees = value
-	player_turncam.play()
+	%TurnCamSound.play()
 
 func _on_moving_finish():
 	var final_pos = Vector3(%CollisionShape3D.global_position.x, 0, %CollisionShape3D.global_position.z)
@@ -124,3 +120,7 @@ func _on_enemies_finished_acting() -> void:
 
 func _on_health_component_died() -> void:
 	print("You are dead")
+
+
+func _on_health_component_took_damage() -> void:
+	%TakeDamageSound.play()

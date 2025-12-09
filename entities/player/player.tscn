@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2ghkvo8n23rm"]
+[gd_scene load_steps=16 format=3 uid="uid://c2ghkvo8n23rm"]
 
 [ext_resource type="Script" uid="uid://cndg235lnk8dk" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="2_abrql"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bes6n56l0npsk" path="res://assets/Audio/Player Sounds/Player Turn Camera/Player Turn Camera 2.wav" id="9_7thud"]
 [ext_resource type="AudioStream" uid="uid://b1mcwh65aswgw" path="res://assets/Audio/Player Sounds/Player Turn Camera/Player Turn Camera 3.wav" id="10_a1qjk"]
 [ext_resource type="AudioStream" uid="uid://oorn1u80w1vb" path="res://assets/Audio/Player Sounds/Player Blade Swing Attack.wav" id="11_7thud"]
+[ext_resource type="AudioStream" uid="uid://csjvtq5ou1jjj" path="res://assets/Audio/Player Sounds/Player Take Damage.wav" id="12_a1qjk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_abrql"]
 
@@ -53,22 +54,28 @@ display_healthbar = false
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_sglur")]
 
-[node name="Player_Steps" type="AudioStreamPlayer2D" parent="."]
+[node name="StepsSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_7thud")
 pitch_scale = 1.11
 max_distance = 4096.0
 bus = &"SFX Bus"
 
-[node name="Player_TurnCam" type="AudioStreamPlayer2D" parent="."]
+[node name="TurnCamSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_j3ovn")
 bus = &"SFX Bus"
 
-[node name="Player_Blade_Swing" type="AudioStreamPlayer2D" parent="."]
+[node name="BladeSwingSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("11_7thud")
 pitch_scale = 1.58
 max_polyphony = 3
 bus = &"SFX Bus"
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
+[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("12_a1qjk")
+bus = &"SFX Bus"
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
