@@ -1,3 +1,7 @@
+# Ignore files that Mac generates that we dont want
+._*
+.DS_Store
+
 # Godot 4+ specific ignores
 .godot/
 /android/
