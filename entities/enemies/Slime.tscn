@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://2lr510wls0xx"]
+[gd_scene load_steps=14 format=3 uid="uid://2lr510wls0xx"]
 
 [ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_xpsbv"]
-[ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/monsters2-2.png" id="2_nec4x"]
+[ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/enemies/monsters2-2.png" id="2_nec4x"]
 [ext_resource type="PackedScene" uid="uid://bfn71a7j1p7ma" path="res://entities/enemies/EnemyMovementComponent.tscn" id="3_rohuw"]
 [ext_resource type="PackedScene" uid="uid://cm3vhk4c1ggfg" path="res://entities/attacks/attack_component.tscn" id="4_nec4x"]
 [ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="5_rohuw"]
@@ -12,8 +12,6 @@
 [ext_resource type="AudioStream" uid="uid://p84wah3xxe8u" path="res://assets/Audio/Slime Enemy/Slime Enemy Attack/2_Slime Enemy Attack Loop.wav" id="10_miiuu"]
 [ext_resource type="AudioStream" uid="uid://brv0c8scob55n" path="res://assets/Audio/Slime Enemy/Slime Enemy Attack/3_Slime Enemy Attack Fire.wav" id="11_miiuu"]
 [ext_resource type="AudioStream" uid="uid://drukolexhrt56" path="res://assets/Audio/Slime Enemy/Slime Enemy Hit.wav" id="12_jmdun"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xpsbv"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0q2nm"]
 streams_count = 3
@@ -29,14 +27,9 @@ attack_component = NodePath("AttackComponent")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 unique_name_in_owner = true
-offset = Vector2(0, 32)
+offset = Vector2(0, 48)
 billboard = 2
 texture = ExtResource("2_nec4x")
-
-[node name="Hurtbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292971, 0)
-visible = false
-shape = SubResource("BoxShape3D_xpsbv")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
 

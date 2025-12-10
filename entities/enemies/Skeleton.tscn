@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://pat2ettc6n5j"]
+
+[ext_resource type="Texture2D" uid="uid://dphufqy1cbiha" path="res://assets/enemies/skeleton_1frame.png" id="1_mto5t"]
+[ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_mxycm"]
+[ext_resource type="PackedScene" uid="uid://cm3vhk4c1ggfg" path="res://entities/attacks/attack_component.tscn" id="3_j05pn"]
+[ext_resource type="PackedScene" uid="uid://bfn71a7j1p7ma" path="res://entities/enemies/EnemyMovementComponent.tscn" id="4_ehple"]
+[ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="5_raw0w"]
+
+[node name="Skeleton" type="CharacterBody3D" node_paths=PackedStringArray("movement_component", "health_component", "attack_component")]
+script = ExtResource("1_mxycm")
+movement_component = NodePath("EnemyMovementComponent")
+health_component = NodePath("HealthComponent")
+attack_component = NodePath("AttackComponent")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+offset = Vector2(0, 48)
+billboard = 2
+texture = ExtResource("1_mto5t")
+
+[node name="AttackComponent" parent="." instance=ExtResource("3_j05pn")]
+
+[node name="EnemyMovementComponent" parent="." instance=ExtResource("4_ehple")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_raw0w")]
+max_health = 10
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="took_damage" from="HealthComponent" to="." method="_on_health_component_took_damage"]

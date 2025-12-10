@@ -41,7 +41,8 @@ func _enemy_movement_start():
 		if movement_component != null:
 			if moving_next_turn:
 				path = movement_component.move(parent_room, self)
-				%MoveSound.play()
+				if %MoveSound:
+					%MoveSound.play()
 				#print("path size: ", path.size())
 			moving_next_turn = !moving_next_turn
 			if attack_component!= null:
@@ -56,16 +57,20 @@ func _enemy_attack_start():
 		#print(attack_component == null)
 		if attack_component != null && local_attack_time > 0:
 			if attack_data.time_to_attack + 1 == local_attack_time:
-				$AttackStartSound.play()
-				$AttackLoopSound.play()
+				if %AttackStartSound:
+					%AttackStartSound.play()
+				if %AttackLoopSound:
+					%AttackLoopSound.play()
 			moving_next_turn = false
 			#print("in here")
 			local_attack_time -= 1
 			parent_room.attack_count_down(self)
 			if local_attack_time == 0:
 				local_attack_time = attack_component.attack_data.time_to_attack + 1
-				$AttackFireSound.play()
-				$AttackLoopSound.stop()
+				if %AttackFireSound:
+					%AttackFireSound.play()
+				if %AttackLoopSound:
+					%AttackLoopSound.stop()
 				state = State.MOVING
 				attack_started = false
 		elif attack_component == null:
@@ -82,9 +87,11 @@ func _on_health_component_died() -> void:
 	#I am doing this for now because it sounds better to hear the hit sound, but as it stands
 	#if the enemy dies so does the stream player so i am keeping the enemy in until the sound finishes.
 	#We can talk about this in discord, because this probably isnt the way we want to do it?
-	await %TakeDamageSound.finished
+	if %TakeDamageSound:
+		await %TakeDamageSound.finished
 	queue_free()
 
 
 func _on_health_component_took_damage() -> void:
-	%TakeDamageSound.play()
+	if %TakeDamageSound:
+		%TakeDamageSound.play()

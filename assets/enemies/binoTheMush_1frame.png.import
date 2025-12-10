@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfr5w5f53oquj"
-path.s3tc="res://.godot/imported/monsters2-2.png-496040cb857797d6bf9220a3100f18a4.s3tc.ctex"
+uid="uid://bgah2huoacrm7"
+path.s3tc="res://.godot/imported/binoTheMush_1frame.png-c52c7a63011e9406a8edb6378b213a52.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/monsters2-2.png"
-dest_files=["res://.godot/imported/monsters2-2.png-496040cb857797d6bf9220a3100f18a4.s3tc.ctex"]
+source_file="res://assets/enemies/binoTheMush_1frame.png"
+dest_files=["res://.godot/imported/binoTheMush_1frame.png-c52c7a63011e9406a8edb6378b213a52.s3tc.ctex"]
 
 [params]
 
