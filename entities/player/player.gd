@@ -76,13 +76,20 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		)):
 			return
 			
-		%CollisionShape3D.global_position = Vector3(desired_position.x, %CollisionShape3D.global_position.y, desired_position.z)
+		#%CollisionShape3D.global_position = Vector3(desired_position.x, %CollisionShape3D.global_position.y, desired_position.z)
 		moving = true
 		waiting_for_enemies = true
+		var temp:Vector3i = Vector3i(
+			roundi(global_position.x),
+			roundi(%CameraPitch.global_position.y),
+			roundi(global_position.z))
+			
+		global_position = desired_position
+		%CameraPitch.global_position = temp
 		desired_position.y = %CameraPitch.global_position.y
+		create_tween().tween_method(move_player, %CameraPitch.global_position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
 		EnemyAction.enemies_take_turn()
-		create_tween().tween_method(move_player, $CameraPitch.global_position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
-		
+
 func move_player(value: Vector3):
 	%CameraPitch.global_position = value
 	%StepsSound.play()
@@ -92,10 +99,6 @@ func rotate_player(value: Vector3):
 	%TurnCamSound.play()
 
 func _on_moving_finish():
-	var final_pos = Vector3(%CollisionShape3D.global_position.x, 0, %CollisionShape3D.global_position.z)
-	global_position = final_pos
-	%CollisionShape3D.position = Vector3(0,.5,0)
-	%CameraPitch.position = Vector3(0,2,0)
 	moving = false
 	position.x = roundf(position.x)
 	position.y = roundf(position.y)
