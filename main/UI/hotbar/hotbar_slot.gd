@@ -7,6 +7,8 @@ var background: Sprite2D
 var selected_border: Sprite2D
 var slot_id: int
 @onready var icon: Sprite2D = %Icon
+## a key value of the attack_dict in player
+var attack_index: int = -1
 
 var is_focused: bool = false
 var is_selected: bool = false
@@ -44,11 +46,13 @@ func unhover() -> void:
 func select() -> void:
 	is_selected = true
 	update_texture()
+	SignalBus.player_selected_attack.emit(attack_index)
 
 
 func unselect() -> void:
 	is_selected = false
 	update_texture()
+	SignalBus.player_unselected_attack.emit()
 
 
 func set_ongoing() -> void:

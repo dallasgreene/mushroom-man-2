@@ -50,4 +50,5 @@ func _on_player_ready():
 	for i in range(hotbar_slots.size()):
 		if Global.player.attack_dict.has(i):
 			hotbar_slots[i].icon.texture = Global.player.attack_dict[i].icon
+			hotbar_slots[i].attack_index = i
 	

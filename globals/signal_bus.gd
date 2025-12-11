@@ -1,6 +1,8 @@
 extends Node
 
 signal player_moved(new_position: Vector3i)
+signal player_selected_attack(player_attack_index: int)
+signal player_unselected_attack
 
 signal enemy_movement_start
 signal enemy_movement_received

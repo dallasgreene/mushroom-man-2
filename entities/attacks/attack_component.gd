@@ -2,10 +2,62 @@ extends Area3D
 class_name AttackComponent
 @export var attack_data: AttackData
 
+
+func get_attacked_tile_coords(parent_room: Room, temp_attack_data: AttackData) -> Dictionary:
+	var attacked_tile_coords = {}
+	match temp_attack_data.attack_type:
+		AttackData.AttackType.CONE:
+			for i in range(temp_attack_data.distance):
+				var desired_position = (position + (-Global.TILE_SIZE*(i+1)) * transform.basis.z)
+				var global_desired_position = to_global(Vector3(0,0,desired_position.z)).round()
+				attacked_tile_coords.get_or_add(roundi(global_desired_position.x), {})[roundi(global_desired_position.z)] = true
+				for j in range (i):
+					var desired_position_outside = (
+						position +
+						(-Global.TILE_SIZE*(i+1)) * transform.basis.z +
+						(Global.TILE_SIZE * (j+1)) * transform.basis.x
+					)
+					var global_desired_position_outside_right = to_global(Vector3(desired_position_outside.x,0,desired_position_outside.z)).round()
+					attacked_tile_coords.get_or_add(roundi(global_desired_position_outside_right.x), {})[roundi(global_desired_position_outside_right.z)] = true
+					var global_desired_position_outside_left = to_global(Vector3(-desired_position_outside.x,0,desired_position_outside.z)).round()
+					attacked_tile_coords.get_or_add(roundi(global_desired_position_outside_left.x), {})[roundi(global_desired_position_outside_left.z)] = true
+		AttackData.AttackType.LINE:
+			for i in range(temp_attack_data.distance):
+				var desired_position = (position + (-Global.TILE_SIZE*(i+1)) * transform.basis.z)
+				var global_desired_position = to_global(Vector3(0,0,desired_position.z)).round()
+				attacked_tile_coords.get_or_add(roundi(global_desired_position.x), {})[roundi(global_desired_position.z)] = true
+		AttackData.AttackType.CLEAVE:
+			var global_desired_position = to_global(Vector3(0,0,-2)).round()
+			attacked_tile_coords.get_or_add(roundi(global_desired_position.x), {})[roundi(global_desired_position.z)] = true
+			for i in range(temp_attack_data.distance):
+				var desired_position = (position + (-Global.TILE_SIZE*(i+1)) * transform.basis.x)
+				var global_desired_position_right = to_global(Vector3(desired_position.x,0,-Global.TILE_SIZE)).round()
+				attacked_tile_coords.get_or_add(roundi(global_desired_position_right.x), {})[roundi(global_desired_position_right.z)] = true
+				var global_desired_position_left = to_global(Vector3(-desired_position.x,0,-Global.TILE_SIZE)).round()
+				attacked_tile_coords.get_or_add(roundi(global_desired_position_left.x), {})[roundi(global_desired_position_left.z)] = true
+		AttackData.AttackType.CIRCLE:
+			for i in range(0, temp_attack_data.distance + 1):
+				for j in range(0, (temp_attack_data.distance + 1) - i):
+					var global_positions = []
+					global_positions.push_back(to_global(Vector3(i * Global.TILE_SIZE,0,j  * Global.TILE_SIZE)).round())
+					global_positions.push_back(to_global(Vector3(-i * Global.TILE_SIZE,0,j * Global.TILE_SIZE)).round())
+					global_positions.push_back(to_global(Vector3(i * Global.TILE_SIZE,0,-j * Global.TILE_SIZE)).round())
+					global_positions.push_back(to_global(Vector3(-i * Global.TILE_SIZE,0,-j * Global.TILE_SIZE)).round())
+					for global_pos in global_positions:
+						attacked_tile_coords.get_or_add(roundi(global_pos.x), {})[roundi(global_pos.z)] = true
+	# Remove all tile positions which do not exist in the room before returning
+	for x_coord in attacked_tile_coords.keys():
+		for z_coord in attacked_tile_coords[x_coord].keys():
+			if parent_room.get_tile(x_coord, z_coord) == null:
+				attacked_tile_coords[x_coord].erase(z_coord)
+		if attacked_tile_coords[x_coord].is_empty():
+			attacked_tile_coords.erase(x_coord)
+	return attacked_tile_coords
+
 func create_attack(parent_room: Room, parent_entity: Creature, parent_attack_data: AttackData):
 	attack_data = parent_attack_data
 	match attack_data.attack_type:
-		AttackData.AttackType.CONE:	
+		AttackData.AttackType.CONE:
 			print("position: ", parent_entity.global_position)
 			for i in range(attack_data.distance):
 				#Creating the layers of the cone (increasing length lines as it goes farther out) (we can change this later for collision)

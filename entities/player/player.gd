@@ -33,6 +33,8 @@ func _ready():
 	parent_room = current_parent
 	Global.register_player(self)
 	SignalBus.enemies_finished_acting.connect(_on_enemies_finished_acting)
+	SignalBus.player_selected_attack.connect(_on_player_selected_attack)
+	SignalBus.player_unselected_attack.connect(_on_player_unselected_attack)
 	SignalBus.player_ready.emit()
 
 func _physics_process(_delta: float) -> void:
@@ -119,6 +121,15 @@ func _on_rotating_finish():
 func _on_enemies_finished_acting() -> void:
 	waiting_for_enemies = false
 	parent_room.minimap.redraw_minimap(parent_room.tile_states)
+
+
+func _on_player_selected_attack(attack_index) -> void:
+	var attacked_tile_coords = attack_component.get_attacked_tile_coords(parent_room, attack_dict[attack_index])
+	parent_room.minimap.draw_player_attack(attacked_tile_coords)
+
+
+func _on_player_unselected_attack() -> void:
+	parent_room.minimap.clear_player_attack()
 
 
 func _on_health_component_died() -> void:

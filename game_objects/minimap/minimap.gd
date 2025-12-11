@@ -40,7 +40,9 @@ enum TileTransform {
 
 const ATTACK_MODULATE_COLORS = [
 	Color(0.0, 0.784, 0.784, 0.5),
-	Color(0.588, 0.294, 0.294, 0.5)
+	Color(0.588, 0.294, 0.294, 0.5),
+	Color(0.605, 0.196, 0.569, 0.5),
+	Color(0.3, 0.339, 0.752, 0.5)
 ]
 
 ## Dictionary where 1st level keys are global world x coordinates, and 2nd level
@@ -105,7 +107,7 @@ func _init(position_dict: Dictionary, enemies_in_room: Array[Enemy]) -> void:
 		))
 		creature_layer.set_cell(tile_coord, CREATURE_SOURCE_ID, ENEMY)
 
-
+## Note that attacked_tile_coords is in minimap coordinates, not grid coordinates
 func draw_attack(creature_id: int, attacked_tile_coords: Dictionary) -> void:
 	var target_layer: TileMapLayer = player_attack_layer
 	if creature_id != 0:
@@ -293,3 +295,19 @@ func redraw_minimap(tile_states: Dictionary) -> void:
 	if not attacks.is_empty():
 		for attacker_id in attacks.keys():
 			draw_attack(attacker_id, attacks[attacker_id])
+
+
+func draw_player_attack(attacked_tile_grid_coords: Dictionary) -> void:
+	player_attack_layer.clear()
+	var attacked_tile_minimap_coords = {}
+	for x_coord in attacked_tile_grid_coords.keys():
+		for z_coord in attacked_tile_grid_coords[x_coord].keys():
+			var tile_coord = get_tile_cordinate_from_grid_position(Vector3i(
+				x_coord, 0, z_coord
+			))
+			attacked_tile_minimap_coords.get_or_add(tile_coord.x, {})[tile_coord.y] = true
+	draw_attack(0, attacked_tile_minimap_coords)
+
+
+func clear_player_attack() -> void:
+	player_attack_layer.clear()
