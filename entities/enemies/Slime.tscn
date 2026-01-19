@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://2lr510wls0xx"]
+[gd_scene format=3 uid="uid://2lr510wls0xx"]
 
 [ext_resource type="Script" uid="uid://cyw4wqma0kh8p" path="res://entities/enemies/enemy.gd" id="1_xpsbv"]
 [ext_resource type="Texture2D" uid="uid://bfr5w5f53oquj" path="res://assets/enemies/monsters2-2.png" id="2_nec4x"]
@@ -19,47 +19,47 @@ stream_0/stream = ExtResource("6_0q2nm")
 stream_1/stream = ExtResource("7_wq2mm")
 stream_2/stream = ExtResource("8_aafma")
 
-[node name="SlimeEnemy" type="CharacterBody3D" node_paths=PackedStringArray("movement_component", "health_component", "attack_component")]
+[node name="SlimeEnemy" type="CharacterBody3D" unique_id=1272339481 node_paths=PackedStringArray("movement_component", "health_component", "attack_component")]
 script = ExtResource("1_xpsbv")
 movement_component = NodePath("EnemyMovementComponent")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1296480553]
 unique_name_in_owner = true
 offset = Vector2(0, 48)
 billboard = 2
 texture = ExtResource("2_nec4x")
 
-[node name="AttackComponent" parent="." instance=ExtResource("4_nec4x")]
+[node name="AttackComponent" parent="." unique_id=647878900 instance=ExtResource("4_nec4x")]
 
-[node name="EnemyMovementComponent" parent="." instance=ExtResource("3_rohuw")]
+[node name="EnemyMovementComponent" parent="." unique_id=625776926 instance=ExtResource("3_rohuw")]
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_rohuw")]
+[node name="HealthComponent" parent="." unique_id=114488742 instance=ExtResource("5_rohuw")]
 max_health = 5
 
-[node name="MoveSound" type="AudioStreamPlayer3D" parent="."]
+[node name="MoveSound" type="AudioStreamPlayer3D" parent="." unique_id=932124328]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_0q2nm")
 panning_strength = 1.57
 bus = &"SFX Bus"
 
-[node name="AttackStartSound" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackStartSound" type="AudioStreamPlayer3D" parent="." unique_id=1331811635]
 unique_name_in_owner = true
 stream = ExtResource("9_aafma")
 bus = &"SFX Bus"
 
-[node name="AttackLoopSound" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackLoopSound" type="AudioStreamPlayer3D" parent="." unique_id=1475693772]
 unique_name_in_owner = true
 stream = ExtResource("10_miiuu")
 bus = &"SFX Bus"
 
-[node name="AttackFireSound" type="AudioStreamPlayer3D" parent="."]
+[node name="AttackFireSound" type="AudioStreamPlayer3D" parent="." unique_id=123997322]
 unique_name_in_owner = true
 stream = ExtResource("11_miiuu")
 bus = &"SFX Bus"
 
-[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="."]
+[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="." unique_id=1191836074]
 unique_name_in_owner = true
 stream = ExtResource("12_jmdun")
 volume_db = -9.379

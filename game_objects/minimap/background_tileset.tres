@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://f5wth1oaplhs"]
+[gd_resource type="TileSet" format=3 uid="uid://f5wth1oaplhs"]
 
 [ext_resource type="Texture2D" uid="uid://cchirtlo66xww" path="res://assets/minimap/stone_gray_2.png" id="1_vigei"]
 

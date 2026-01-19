@@ -4,7 +4,6 @@ var moving_next_turn: bool = false
 var state: State = State.IDLE
 var path
 var local_attack_time
-var attack_started = false
 @export var movement_component: EnemyMovementComponent
 @onready var sprite = %Sprite3D
 @export var attack_data: AttackData
@@ -28,6 +27,7 @@ func _ready() -> void:
 	while !current_parent is Room:
 		current_parent = current_parent.get_parent()
 	parent_room = current_parent
+	parent_room.enemies_left += 1
 	local_attack_time = attack_component.attack_data.time_to_attack + 1
 
 func _exit_tree() -> void:
@@ -39,14 +39,19 @@ func _exit_tree() -> void:
 func _enemy_movement_start():
 	if state == State.MOVING:
 		if movement_component != null:
+			path = movement_component.get_navigation_path(parent_room, self)
 			if moving_next_turn:
 				path = movement_component.move(parent_room, self)
+				path = path.slice(1,path.size())
 				if %MoveSound:
 					%MoveSound.play()
-				#print("path size: ", path.size())
+			else:
+				path = movement_component.get_navigation_path(parent_room, self)
+				path = path.slice(1,path.size())
+				movement_component.enemy_look_at()
 			moving_next_turn = !moving_next_turn
 			if attack_component!= null:
-				if path != null && ((path.size()-1 <= attack_component.attack_data.distance) || (path.size()+1 == 1 && attack_component.attack_data.attack_type == AttackData.AttackType.CLEAVE)):
+				if path != null && ((path.size() <= attack_component.attack_data.distance)):
 					state = State.ATTACKING
 					path = null
 					attack_component.create_attack(parent_room,self,attack_component.attack_data)
@@ -54,15 +59,12 @@ func _enemy_movement_start():
 
 func _enemy_attack_start():
 	if state == State.ATTACKING:
-		#print(attack_component == null)
 		if attack_component != null && local_attack_time > 0:
 			if attack_data.time_to_attack + 1 == local_attack_time:
 				if %AttackStartSound:
 					%AttackStartSound.play()
 				if %AttackLoopSound:
 					%AttackLoopSound.play()
-			moving_next_turn = false
-			#print("in here")
 			local_attack_time -= 1
 			parent_room.attack_count_down(self)
 			if local_attack_time == 0:
@@ -72,7 +74,6 @@ func _enemy_attack_start():
 				if %AttackLoopSound:
 					%AttackLoopSound.stop()
 				state = State.MOVING
-				attack_started = false
 		elif attack_component == null:
 			state = State.MOVING	
 	SignalBus.enemy_attack_received.emit()

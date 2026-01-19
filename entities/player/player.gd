@@ -120,6 +120,8 @@ func _on_rotating_finish():
 
 func _on_enemies_finished_acting() -> void:
 	waiting_for_enemies = false
+	if parent_room.enemies_left<=0:
+		SignalBus.change_level.emit()
 	parent_room.minimap.redraw_minimap(parent_room.tile_states)
 
 

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://clsw0etoc8qua"]
+[gd_resource type="TileSet" format=3 uid="uid://clsw0etoc8qua"]
 
 [ext_resource type="Texture2D" uid="uid://4k168krafpr0" path="res://assets/minimap/attack_zone_sprite_sheet.png" id="1_vwx8d"]
 

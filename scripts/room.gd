@@ -11,7 +11,8 @@ var tile_states: Dictionary = {}
 ## Structure { Creature reference: {[Tile]: as a set} } All of the tiles that are affected by a singular creature
 var attacked_tiles: Dictionary = {}
 var minimap: Minimap = null
-
+var enemies_left: int
+@export var next_room_value: Global.Rooms
 
 func _ready() -> void:
 	init_pathfinding.call_deferred()
@@ -129,8 +130,9 @@ func creature_died(creature: Creature):
 		for tile in attacked_tiles[creature].keys():
 			if tile.attack_queue.has(creature):
 				tile.remove_attacks_from_creature(creature)
-				attacked_tiles[creature].erase(tile)			
+				attacked_tiles[creature].erase(tile)
 	var creature_current_tile = get_tile(roundi(creature.global_position.x), roundi(creature.global_position.z))
 	creature_current_tile.occupying_entity = null
 	pathfinding.set_point_disabled(creature_current_tile.astar_position_id, false)
 	creature.attack_component.attack()
+	enemies_left -= 1

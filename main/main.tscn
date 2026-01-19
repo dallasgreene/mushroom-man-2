@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyvuins014i2k"]
+[gd_scene format=3 uid="uid://dyvuins014i2k"]
 
 [ext_resource type="Script" uid="uid://cckbp0of80v2v" path="res://main/UI/ui.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://c1noypmfvybrw" path="res://main/UI/hotbar/hotbar.tscn" id="2_xwkvk"]
+[ext_resource type="Script" uid="uid://dvoxncw1bxx1f" path="res://main/world.gd" id="3_3wy1v"]
 [ext_resource type="AudioStream" uid="uid://cbe73vomdspn6" path="res://assets/Audio/Dungeon Ambience_Mushroom Man.wav" id="3_c651c"]
 [ext_resource type="PackedScene" uid="uid://iadm6qir1suj" path="res://game_objects/rooms/room_1.tscn" id="3_xwkvk"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1847662203]
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="." unique_id=464746548]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +20,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_xwkvk")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI" unique_id=1486743121]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 1
@@ -29,20 +30,21 @@ offset_left = -300.0
 offset_bottom = 300.0
 grow_horizontal = 0
 
-[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer" unique_id=1480861806]
 disable_3d = true
 handle_input_locally = false
 size = Vector2i(300, 300)
 render_target_update_mode = 4
 
-[node name="Hotbar" parent="UI" instance=ExtResource("2_xwkvk")]
+[node name="Hotbar" parent="UI" unique_id=2139612623 instance=ExtResource("2_xwkvk")]
 layout_mode = 1
 
-[node name="World" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=2035864935]
+script = ExtResource("3_3wy1v")
 
-[node name="Dungeon Ambience" type="AudioStreamPlayer2D" parent="World"]
+[node name="Dungeon Ambience" type="AudioStreamPlayer2D" parent="World" unique_id=432278370]
 stream = ExtResource("3_c651c")
 autoplay = true
 bus = &"SFX Bus"
 
-[node name="room_1" parent="World" instance=ExtResource("3_xwkvk")]
+[node name="room_1" parent="World" unique_id=1355830545 instance=ExtResource("3_xwkvk")]

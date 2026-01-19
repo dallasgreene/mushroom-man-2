@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b1gx1q2pnj253"]
+
+[ext_resource type="PackedScene" uid="uid://n8uganyo3q61" path="res://assets/staging/hallway_2.glb" id="1_h7cb5"]
+[ext_resource type="PackedScene" uid="uid://c2ghkvo8n23rm" path="res://entities/player/player.tscn" id="2_07akt"]
+[ext_resource type="Script" uid="uid://docbcs0ugfxc6" path="res://scripts/room.gd" id="2_xs0wv"]
+[ext_resource type="Script" uid="uid://cqx8574q20wem" path="res://scripts/moveable_area.gd" id="3_x17dl"]
+[ext_resource type="PackedScene" uid="uid://y1ty825ifijc" path="res://entities/enemies/Mask.tscn" id="3_xs0wv"]
+[ext_resource type="Script" uid="uid://8h6r04bd6qjt" path="res://entities/attacks/attack_data.gd" id="6_x17dl"]
+
+[sub_resource type="Resource" id="Resource_xt344"]
+script = ExtResource("6_x17dl")
+time_to_attack = 3
+damage = 3
+is_enemy_attack = true
+distance = 2
+metadata/_custom_type_script = "uid://8h6r04bd6qjt"
+
+[node name="room_2" unique_id=1563612569 instance=ExtResource("1_h7cb5")]
+script = ExtResource("2_xs0wv")
+
+[node name="MoveableArea2" type="CSGBox3D" parent="." index="0" unique_id=859908222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.007, -0.572, 0.9920001)
+size = Vector3(10, 1, 2)
+script = ExtResource("3_x17dl")
+metadata/_custom_type_script = "uid://cqx8574q20wem"
+
+[node name="MoveableArea1" type="CSGBox3D" parent="." index="1" unique_id=6687596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.007, -0.572, 4)
+size = Vector3(2, 1, 8)
+script = ExtResource("3_x17dl")
+metadata/_custom_type_script = "uid://cqx8574q20wem"
+
+[node name="Player" parent="." index="2" unique_id=893024472 instance=ExtResource("2_07akt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="Mask" parent="." index="4" unique_id=912440191 instance=ExtResource("3_xs0wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 7)
+attack_data = SubResource("Resource_xt344")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="5" unique_id=507781110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.3773831, 4.2535095)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="6" unique_id=1960459051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5445895, 1.1369135, 1.0598166)
+omni_range = 6.579061

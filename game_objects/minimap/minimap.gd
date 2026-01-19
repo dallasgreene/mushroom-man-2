@@ -83,7 +83,13 @@ func _init(position_dict: Dictionary, enemies_in_room: Array[Enemy]) -> void:
 	var x_min = min.callv(position_dict.keys())
 	var y_min = position_dict[position_dict.keys()[0]].keys()[0]
 	for x_coord in position_dict.keys():
-		y_min = min(y_min, min.callv(position_dict[x_coord].keys()))
+		print(position_dict[x_coord].keys())
+		var x_coord_min 
+		if position_dict[x_coord].keys().size()>1:
+			x_coord_min = min.callv(position_dict[x_coord].keys())
+		else:
+			x_coord_min = position_dict[x_coord].keys()[0]
+		y_min = min(y_min, x_coord_min)
 
 	for x_coord in position_dict.keys():
 		if position_dict[x_coord].size() > 0:

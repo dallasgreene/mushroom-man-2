@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://22rt8jrch1qs"]
+[gd_scene format=3 uid="uid://22rt8jrch1qs"]
 
 [ext_resource type="Script" uid="uid://bvmoh4nq4jdbu" path="res://entities/health_component.gd" id="1_rgctf"]
 
@@ -10,18 +10,18 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vsr3"]
 bg_color = Color(0.19005695, 0.7164608, 0.22688222, 1)
 
-[node name="HealthComponent" type="Node3D"]
+[node name="HealthComponent" type="Node3D" unique_id=1315727950]
 script = ExtResource("1_rgctf")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1991846655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_1acsh")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=927790191]
 transparent_bg = true
 
-[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=2117904887]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5

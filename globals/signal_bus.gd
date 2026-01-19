@@ -11,3 +11,5 @@ signal enemy_attack_received
 signal enemies_finished_acting
 
 signal player_ready
+
+signal change_level
