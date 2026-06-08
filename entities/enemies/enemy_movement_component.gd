@@ -43,7 +43,6 @@ func enemy_look_at():
 	enemy.rotation_degrees.y = round(enemy.rotation_degrees.y/90)*90
 
 func move_function(value: Vector3):
-	print("in call location: ", enemy.sprite.global_position)
 	enemy.sprite.global_position = value
 
 func _on_moving_finish():

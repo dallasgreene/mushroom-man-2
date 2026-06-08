@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2ghkvo8n23rm"]
+[gd_scene format=3 uid="uid://c2ghkvo8n23rm"]
 
 [ext_resource type="Script" uid="uid://cndg235lnk8dk" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://22rt8jrch1qs" path="res://entities/health_component.tscn" id="2_abrql"]
@@ -30,48 +30,48 @@ stream_0/stream = ExtResource("8_wvtmh")
 stream_1/stream = ExtResource("9_7thud")
 stream_2/stream = ExtResource("10_a1qjk")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "attack_component")]
+[node name="Player" type="CharacterBody3D" unique_id=720018476 node_paths=PackedStringArray("health_component", "attack_component")]
 script = ExtResource("1_symyc")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")
 
-[node name="CameraPitch" type="Node3D" parent="."]
+[node name="CameraPitch" type="Node3D" parent="." unique_id=1727297679]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPitch"]
+[node name="Camera3D" type="Camera3D" parent="CameraPitch" unique_id=1613301264]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 current = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=194643156]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 visible = false
 shape = SubResource("BoxShape3D_abrql")
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_abrql")]
+[node name="HealthComponent" parent="." unique_id=207282269 instance=ExtResource("2_abrql")]
 max_health = 10
 display_healthbar = false
 
-[node name="AttackComponent" parent="." instance=ExtResource("3_sglur")]
+[node name="AttackComponent" parent="." unique_id=771306139 instance=ExtResource("3_sglur")]
 
-[node name="StepsSound" type="AudioStreamPlayer3D" parent="."]
+[node name="StepsSound" type="AudioStreamPlayer3D" parent="." unique_id=1166173058]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_7thud")
 pitch_scale = 1.11
 max_distance = 4096.0
 
-[node name="TurnCamSound" type="AudioStreamPlayer3D" parent="."]
+[node name="TurnCamSound" type="AudioStreamPlayer3D" parent="." unique_id=1139517028]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_j3ovn")
 
-[node name="BladeSwingSound" type="AudioStreamPlayer3D" parent="."]
+[node name="BladeSwingSound" type="AudioStreamPlayer3D" parent="." unique_id=1383677427]
 unique_name_in_owner = true
 stream = ExtResource("11_7thud")
 pitch_scale = 1.58
 max_polyphony = 3
 
-[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="."]
+[node name="TakeDamageSound" type="AudioStreamPlayer3D" parent="." unique_id=316627285]
 unique_name_in_owner = true
 stream = ExtResource("12_a1qjk")
 

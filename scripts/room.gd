@@ -12,6 +12,7 @@ var tile_states: Dictionary = {}
 var attacked_tiles: Dictionary = {}
 var minimap: Minimap = null
 var enemies_left: int
+signal pathfinding_initialized
 @export var next_room_value: Global.Rooms
 
 func _ready() -> void:
@@ -80,7 +81,8 @@ func init_pathfinding() -> void:
 	var player_pos = Global.player.position
 	var player_tile = get_tile(roundi(player_pos.x), roundi(player_pos.z))
 	player_tile.occupying_entity = Global.player
-
+	pathfinding_initialized.emit()
+	
 
 func move_creature(old_position: Vector3i, new_position: Vector3i, entity: Creature) -> void:
 	var prev_tile = get_tile(old_position.x, old_position.z)

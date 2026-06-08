@@ -31,6 +31,8 @@ func _ready():
 	while !current_parent is Room:
 		current_parent = current_parent.get_parent()
 	parent_room = current_parent
+	if Global.player:
+		Global.player.queue_free()
 	Global.register_player(self)
 	SignalBus.enemies_finished_acting.connect(_on_enemies_finished_acting)
 	SignalBus.player_selected_attack.connect(_on_player_selected_attack)
@@ -59,7 +61,7 @@ func _physics_process(_delta: float) -> void:
 			%BladeSwingSound.play()
 			attack_component.create_attack(parent_room,self,attack_component.attack_data)
 			parent_room.attack_count_down(self)			
-			EnemyAction.enemies_take_turn()
+			SignalBus.enemies_take_turn.emit()
 
 func attempt_move(forward_direction: int, lateral_direction: int):
 	var desired_position = (
@@ -90,7 +92,7 @@ func attempt_move(forward_direction: int, lateral_direction: int):
 		%CameraPitch.global_position = temp
 		desired_position.y = %CameraPitch.global_position.y
 		create_tween().tween_method(move_player, %CameraPitch.global_position, desired_position, Global.MOVE_SPEED).finished.connect(_on_moving_finish)
-		EnemyAction.enemies_take_turn()
+		SignalBus.enemies_take_turn.emit()
 
 func move_player(value: Vector3):
 	%CameraPitch.global_position = value

@@ -13,11 +13,13 @@ var next_room_id: int = 0
 var next_creature_id: int = 1 # starts at 1 because player is always 0
 
 enum Rooms {
+	NONE,
 	ROOM_1,
 	ROOM_2
 }
 
 var rooms: Dictionary = {
+	Rooms.NONE: "",
 	Rooms.ROOM_1: "uid://iadm6qir1suj",
 	Rooms.ROOM_2: "uid://b1gx1q2pnj253"
 }

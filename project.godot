@@ -27,6 +27,7 @@ Global="*res://globals/global.gd"
 Minimaps="*res://globals/minimaps.gd"
 TileState="*res://globals/tile_state.gd"
 EnemyAction="*res://globals/enemy_action.gd"
+PlayerData="*uid://qo204fcyj6n8"
 
 [debug]
 

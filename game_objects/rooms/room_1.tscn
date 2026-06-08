@@ -18,21 +18,25 @@ metadata/_custom_type_script = "uid://8h6r04bd6qjt"
 
 [node name="room_1" unique_id=1197773756 instance=ExtResource("1_10ng7")]
 script = ExtResource("2_2v6d3")
-next_room_value = 1
+next_room_value = 2
 
-[node name="SlimeEnemy" parent="." index="1" unique_id=1122309984 instance=ExtResource("2_mk5js")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.004, 0, -11)
-attack_data = SubResource("Resource_blg1f")
-
-[node name="Player" parent="." index="2" unique_id=1557178193 instance=ExtResource("3_f5cve")]
+[node name="Player" parent="." index="1" unique_id=1557178193 instance=ExtResource("3_f5cve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 
-[node name="MoveableArea" type="CSGBox3D" parent="." index="3" unique_id=2042042306]
+[node name="MoveableArea" type="CSGBox3D" parent="." index="2" unique_id=2042042306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -0.66184044, -6)
 size = Vector3(12, 1, 12)
 script = ExtResource("5_ovg67")
 metadata/_custom_type_script = "uid://cqx8574q20wem"
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="4" unique_id=485564759]
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=485564759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.987, -6)
 omni_range = 20.0
+
+[node name="SlimeEnemy2" parent="." index="4" unique_id=1272339481 instance=ExtResource("2_mk5js")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.062, 0, -11)
+attack_data = SubResource("Resource_blg1f")
+
+[node name="SlimeEnemy" parent="." index="5" unique_id=1122309984 instance=ExtResource("2_mk5js")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.004, 0, -11)
+attack_data = SubResource("Resource_blg1f")

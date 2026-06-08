@@ -16,7 +16,9 @@ distance = 2
 metadata/_custom_type_script = "uid://8h6r04bd6qjt"
 
 [node name="room_2" unique_id=1563612569 instance=ExtResource("1_h7cb5")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_xs0wv")
+next_room_value = 1
 
 [node name="MoveableArea2" type="CSGBox3D" parent="." index="0" unique_id=859908222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.007, -0.572, 0.9920001)
@@ -31,10 +33,10 @@ script = ExtResource("3_x17dl")
 metadata/_custom_type_script = "uid://cqx8574q20wem"
 
 [node name="Player" parent="." index="2" unique_id=893024472 instance=ExtResource("2_07akt")]
-transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 1, 0, 1)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 0.5, 0, 1, 0, -4.371139e-08, 1, 0, 1)
 
 [node name="Mask" parent="." index="4" unique_id=912440191 instance=ExtResource("3_xs0wv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 7)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 9, 0, 7)
 attack_data = SubResource("Resource_xt344")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="5" unique_id=507781110]

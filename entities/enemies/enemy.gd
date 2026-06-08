@@ -29,6 +29,9 @@ func _ready() -> void:
 	parent_room = current_parent
 	parent_room.enemies_left += 1
 	local_attack_time = attack_component.attack_data.time_to_attack + 1
+	await parent_room.pathfinding_initialized
+	parent_room.move_creature(global_position,global_position,self)
+	parent_room.minimap.redraw_minimap(parent_room.tile_states)
 
 func _exit_tree() -> void:
 	if attack_component != null && SignalBus.enemy_attack_start.is_connected(_enemy_attack_start):
@@ -59,6 +62,7 @@ func _enemy_movement_start():
 
 func _enemy_attack_start():
 	if state == State.ATTACKING:
+		print(global_position)
 		if attack_component != null && local_attack_time > 0:
 			if attack_data.time_to_attack + 1 == local_attack_time:
 				if %AttackStartSound:
