@@ -18,6 +18,8 @@ func decrement_queue(creature: Creature):
 		if attack_queue[creature].remaining_time_in_attack <= 0:
 			if occupying_entity != null && occupying_entity is Creature && creature.is_player != (occupying_entity as Creature).is_player:
 				occupying_entity.health_component.take_damage(attack_queue[creature].damage)
+				if creature is Player:
+					Global.player.progress_cooldown()
 			remove_attacks_from_creature(creature)
 			return true
 		return false

@@ -25,7 +25,7 @@ func _ready():
 	attack_dict[2]=cleave_attack
 	attack_dict[3]=cone_attack
 	attack_dict[4]=line_attack
-	attack_component.attack_data = basic_attack
+	attack_component.attack_data = attack_dict[0]
 	is_player = true
 	var current_parent = get_parent()
 	while !current_parent is Room:
@@ -60,6 +60,8 @@ func _physics_process(_delta: float) -> void:
 		if Input.is_action_just_pressed("melee_attack"):
 			%BladeSwingSound.play()
 			attack_component.create_attack(parent_room,self,attack_component.attack_data)
+			if attack_component.attack_data.cooldown > 0:
+				attack_component.attack_data.current_remaining_cooldown = attack_component.attack_data.cooldown
 			parent_room.attack_count_down(self)			
 			SignalBus.enemies_take_turn.emit()
 
@@ -101,6 +103,12 @@ func move_player(value: Vector3):
 func rotate_player(value: Vector3):
 	rotation_degrees = value
 	%TurnCamSound.play()
+
+func progress_cooldown():
+	for attack_index in attack_dict.size():
+		if attack_dict[attack_index].current_remaining_cooldown > 0:
+			attack_dict[attack_index].current_remaining_cooldown -= 1
+		print("attack ", attack_index, " has ", attack_dict[attack_index].current_remaining_cooldown, " turns remaining of cooldown")
 
 func _on_moving_finish():
 	moving = false

@@ -8,6 +8,8 @@ class_name AttackData
 @export_range(1,100) var distance: int
 @export var attack_type: AttackType
 @export var icon: Texture2D
+@export var cooldown: int
+var current_remaining_cooldown: int
 var remaining_time_in_attack: int
 
 enum AttackType{
